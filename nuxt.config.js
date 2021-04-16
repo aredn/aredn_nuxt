@@ -7,7 +7,7 @@ export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     titleTemplate: '%s - AREDN',
-    title: 'K5DLQ-HAP-1',
+    title: 'Your Node',
     htmlAttrs: {
       lang: 'en'
     },

@@ -126,7 +126,7 @@ export default {
         {
           icon: 'mdi-wifi',
           title: 'WiFi Scan',
-          to: '/wifiscan'
+          to: '/scan'
         },
         {
           icon: 'mdi-arrow-down-bold-circle',
