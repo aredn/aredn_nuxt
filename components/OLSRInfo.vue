@@ -1,7 +1,7 @@
 <template>
   <v-card height="100%">
     <v-card-title class="headline">
-      OLSR Information
+      OLSR
       <v-spacer />
       <v-icon color="green">mdi-routes</v-icon>
     </v-card-title>

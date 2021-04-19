@@ -1,7 +1,7 @@
 <template>
   <v-card height="100%">
     <v-card-title class="headline">
-      Filesystem Information
+      Filesystem
       <v-spacer />
       <v-icon color="green">mdi-harddisk</v-icon>
     </v-card-title>

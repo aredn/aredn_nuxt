@@ -1,7 +1,7 @@
 <template>
   <v-card height="100%">
     <v-card-title class="headline">
-      Memory Information
+      Memory
       <v-spacer />
       <v-icon color="amber">mdi-memory</v-icon>
     </v-card-title>

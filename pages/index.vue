@@ -37,11 +37,14 @@
 </template>
 
 <script>
-const dataService = "http://localnode.local.mesh:8080/cgi-bin/api?status=ip,meshrf,location,sysinfo,olsr,storage,memory";
+const dataService = process.env.apiROOT + "/api?status=ip,meshrf,location,sysinfo,olsr,storage,memory";
 
 export default {
   name: "Status",
   components: {},
+  head: {
+    title: "Status"
+  },
   data() {
     return {
       info: {},

@@ -14,6 +14,7 @@
           :to="item.to"
           router
           exact
+          v-show="(!item.auth) || (isAuthenticated() && item.auth)"
         >
           <v-list-item-action>
             <v-icon>{{ item.icon }}</v-icon>
@@ -91,6 +92,8 @@
 import BaseAlert from "~/components/common/BaseAlert";
 
 // const dataService = "/api?common=sysinfo,alerts";
+// const dataService = process.env.apiROOT + "/api?common=sysinfo,alerts";
+const dataService = "http://192.168.0.47:8080/cgi-bin/api?common=sysinfo,alerts";
 
 export default {
   components: {
@@ -106,53 +109,62 @@ export default {
         {
           icon: 'mdi-information',
           title: 'Status',
-          to: '/'
+          to: '/',
+          auth: false
         },
         {
           icon: 'mdi-spider-web',
           title: 'Nodes',
-          to: '/nodes'
+          to: '/nodes',
+          auth: false
         },
         {
           icon: 'mdi-apps',
           title: 'Services',
-          to: '/services'
+          to: '/services',
+          auth: false
         },
         {
           icon: 'mdi-signal',
           title: 'Signal Chart',
-          to: '/signal'
+          to: '/signal',
+          auth: false
         },
         {
           icon: 'mdi-wifi',
           title: 'WiFi Scan',
-          to: '/scan'
+          to: '/scan',
+          auth: false
         },
         {
           icon: 'mdi-arrow-down-bold-circle',
           title: 'Inbound Tunnels',
-          to: '/tunnelsin'
+          to: '/tunnelsin',
+          auth: true
         },
         {
           icon: 'mdi-arrow-up-bold-circle',
           title: 'Outbound Tunnels',
-          to: '/tunnelsout'
+          to: '/tunnelsout',
+          auth: true
         },
         {
           icon: 'mdi-cog',
           title: 'Setup',
-          to: '/setup'
+          to: '/setup',
+          auth: true
         },
         {
           icon: 'mdi-account-supervisor',
           title: 'About',
-          to: '/about'
+          to: '/about',
+          auth: false
         }
       ],
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: "[nodename]",
+      title: "...",
       info: {},
       alert: {
         aredn: "",
@@ -172,17 +184,20 @@ export default {
   methods: {
     toggleTheme() {
       this.$vuetify.theme.dark = this.darkmode;
+    },
+    isAuthenticated() {
+      return true;
     }
   },
   async fetch() {
     // this.info = await $http.$get('http://localnode.local.mesh:8080/cgi-bin/api?common=sysinfo,alerts')
-    // this.info = await fetch(dataService)
-    this.info = await fetch('http://localnode.local.mesh:8080/cgi-bin/api?common=sysinfo,alerts')
+    // this.info = await fetch('http://localnode.local.mesh:8080/cgi-bin/api?common=sysinfo,alerts')
+    // this.info = await fetch('/api?common=sysinfo,alerts')
+    this.info = await fetch(dataService)
       .then(res => res.json());
     this.title = this.info.pages.common.sysinfo.node;
     this.alert.aredn = this.info.pages.common.alerts.aredn;
     this.alert.local = this.info.pages.common.alerts.local;
-    console.log(this.info);
   }
 }
 </script>

@@ -1,7 +1,7 @@
 <template>
   <v-card height="100%">
     <v-card-title class="headline">
-      System Information
+      System
       <v-spacer />
       <v-icon color="amber">mdi-information</v-icon>
     </v-card-title>
