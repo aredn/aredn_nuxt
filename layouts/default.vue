@@ -63,6 +63,19 @@
         <v-switch @click="toggleTheme" v-model="darkmode" label="Dark" />
       </v-col>
       <v-col cols="1">
+        <v-btn
+          class="mx-2"
+          dark
+          small
+          color="primary"
+        >
+          <v-icon dark>
+            mdi-lock
+          </v-icon>
+          <span>Login</span>
+        </v-btn>
+      </v-col>
+      <v-col cols="1">
       <a href="http://www.arednmesh.org">
         <v-img
           src="/aredn_logo.png"

@@ -16,10 +16,8 @@
         <v-card-title class="headline lighten-1" :class="color">
           {{ title }}
         </v-card-title>
-        <v-card-text>
-          <slot></slot>
-        </v-card-text>
-        <v-divider></v-divider>
+        <v-card-text v-html="this.$slots.default[0].text" />
+        <v-divider />
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn
