@@ -65,14 +65,18 @@
       <v-col cols="1">
         <v-btn
           class="mx-2"
+          fab
           dark
           small
           color="primary"
+          @click="toggleAuthenticated()"
         >
-          <v-icon dark>
+          <v-icon v-if="isAuthenticated()" dark>
             mdi-lock
           </v-icon>
-          <span>Login</span>
+          <v-icon v-else dark>
+            mdi-lock-open
+          </v-icon>
         </v-btn>
       </v-col>
       <v-col cols="1">
@@ -106,7 +110,7 @@ import BaseAlert from "~/components/common/BaseAlert";
 
 // const dataService = "/api?common=sysinfo,alerts";
 // const dataService = process.env.apiROOT + "/api?common=sysinfo,alerts";
-const dataService = "http://192.168.0.47:8080/cgi-bin/api?common=sysinfo,alerts";
+const dataService = "http://localnode.local.mesh:8080/cgi-bin/api?common=sysinfo,alerts";
 
 export default {
   components: {
@@ -183,6 +187,7 @@ export default {
         aredn: "",
         local: ""
       },
+      authenticated: false,
       darkmode: true
     }
   },
@@ -199,7 +204,11 @@ export default {
       this.$vuetify.theme.dark = this.darkmode;
     },
     isAuthenticated() {
-      return true;
+      return this.authenticated;
+    },
+    toggleAuthenticated() {
+      this.authenticated=!this.authenticated
+      return this.authenticated;
     }
   },
   async fetch() {
