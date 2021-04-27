@@ -104,6 +104,7 @@
 
 <script>
   export default {
+    middleware: 'authenticated',
     data: () => ({
       date: null,
       trip: {

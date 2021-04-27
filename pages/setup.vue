@@ -1,17 +1,92 @@
 <template>
-  <v-row>
+  <!-- <v-row>
     <v-col class="text-center">
         <h1>Setup</h1>
     </v-col>
-  </v-row>
+  </v-row> -->
+  <v-card>
+    <v-tabs
+      v-model="tab"
+      background-color="primary"
+      centered
+      dark
+      icons-and-text
+    >
+      <v-tabs-slider></v-tabs-slider>
+
+      <v-tab href="#tab-setup-basic">
+        BASIC Setup
+        <v-icon>mdi-cog</v-icon>
+      </v-tab>
+
+      <v-tab href="#tab-setup-meshrf">
+        Mesh RF
+        <v-icon>mdi-spider-web</v-icon>
+      </v-tab>
+
+      <v-tab href="#tab-setup-lan">
+        LAN
+        <v-icon>mdi-ethernet</v-icon>
+      </v-tab>
+      <v-tab href="#tab-setup-wan">
+        WAN
+        <v-icon>mdi-cloud</v-icon>
+      </v-tab>
+      <v-tab href="#tab-setup-optional">
+        Optional
+        <v-icon>mdi-tune</v-icon>
+      </v-tab>
+      <v-tab href="#tab-6">
+        Inbound Tunnels
+        <v-icon>mdi-arrow-down-bold-circle</v-icon>
+      </v-tab>
+       <v-tab href="#tab-7">
+        Outbound Tunnels
+        <v-icon>mdi-arrow-up-bold-circle</v-icon>
+      </v-tab>
+
+    </v-tabs>
+
+    <v-tabs-items v-model="tab">
+      <v-tab-item value="tab-setup-basic">
+        <setup-basic />
+      </v-tab-item>
+      <v-tab-item value="tab-setup-meshrf">
+        <setup-meshrf />
+      </v-tab-item>
+      <v-tab-item value="tab-setup-lan">
+        <setup-lan />
+      </v-tab-item>
+      <v-tab-item value="tab-setup-wan">
+        <setup-wan />
+      </v-tab-item>
+      <v-tab-item value="tab-setup-optional">
+        <setup-optional />
+      </v-tab-item>
+      <v-tab-item
+        v-for="i in [6,7]"
+        :key="i"
+        :value="'tab-' + i"
+      >
+        <v-card flat>
+          <v-card-text>{{ text }}</v-card-text>
+        </v-card>
+      </v-tab-item>
+    </v-tabs-items>
+  </v-card>
 </template>
 
 <script>
+import SetupBasic from '~/components/setup/optional.vue'
 export default {
-  created() {
-    console.log(process.env.NODE_ENV)
-    console.log(process.env.apiROOT)
-    
+  components: { SetupBasic },
+  data () {
+    return {
+      tab: null,
+      text: 'This is where the form controls will be located.  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+    }
+  },
+  created() {    
   }
 }
 </script>

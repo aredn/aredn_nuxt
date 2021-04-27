@@ -8,7 +8,7 @@
     <v-card-text>
       <v-row>
         <v-col>
-          <p class="label">WiFi:</p>
+          <p class="label">Wifi:</p>
           <p class="label">LAN:</p>
           <p class="label">WAN:</p>
           <p class="label">Gateway:</p>

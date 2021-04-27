@@ -37,7 +37,8 @@
       >
         <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
       </v-btn>
-      <v-toolbar-title v-text="title" />
+      <v-toolbar-title v-text="title" />&nbsp;[
+      <v-toolbar-title class="font-weight-thin" v-text="desc" />]
       <v-spacer />
       <v-col cols="2">
         <BaseAlert 
@@ -55,9 +56,6 @@
           class="darken-2"
           v-show="alert.local !== ''"
         >{{ alert.local }}</BaseAlert>
-      </v-col>
-      <v-col cols="1">
-        <v-icon color="red">mdi-wifi</v-icon>
       </v-col>
       <v-col cols="1">
         <v-switch @click="toggleTheme" v-model="darkmode" label="Dark" />
@@ -107,6 +105,8 @@
 
 <script>
 import BaseAlert from "~/components/common/BaseAlert";
+import { mapMutations } from 'vuex'
+
 
 // const dataService = "/api?common=sysinfo,alerts";
 // const dataService = process.env.apiROOT + "/api?common=sysinfo,alerts";
@@ -169,7 +169,7 @@ export default {
           icon: 'mdi-cog',
           title: 'Setup',
           to: '/setup',
-          auth: true
+          auth: false
         },
         {
           icon: 'mdi-account-supervisor',
@@ -182,34 +182,35 @@ export default {
       right: true,
       rightDrawer: false,
       title: "...",
+      desc: "...",
       info: {},
       alert: {
         aredn: "",
         local: ""
       },
       authenticated: false,
-      darkmode: true
+      darkmode: true,
+      olsrnodes: 0
     }
   },
   computed: {
     isMeshConnected() {
       return true;
     },
-    hasLocalAlert() {
-      return (this.aredn.local ==="" ? true : false)
-    }
   },
   methods: {
     toggleTheme() {
       this.$vuetify.theme.dark = this.darkmode;
     },
     isAuthenticated() {
-      return this.authenticated;
+      return this.$store.state.authenticated;
     },
     toggleAuthenticated() {
-      this.authenticated=!this.authenticated
-      return this.authenticated;
-    }
+      this.toggle();
+    },
+    ...mapMutations({
+      toggle: 'toggle'
+    }), 
   },
   async fetch() {
     // this.info = await $http.$get('http://localnode.local.mesh:8080/cgi-bin/api?common=sysinfo,alerts')
@@ -218,6 +219,7 @@ export default {
     this.info = await fetch(dataService)
       .then(res => res.json());
     this.title = this.info.pages.common.sysinfo.node;
+    this.desc = this.info.pages.common.sysinfo.description;
     this.alert.aredn = this.info.pages.common.alerts.aredn;
     this.alert.local = this.info.pages.common.alerts.local;
   }

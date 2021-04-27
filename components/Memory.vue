@@ -8,12 +8,13 @@
     <v-card-text>
       <v-row>
         <v-col class="text-end">
+          <p class="label">Total RAM:</p>
           <p class="label">Free RAM:</p>
           <p class="label">Shared RAM:</p>
           <p class="label">Buffer RAM:</p>
         </v-col>
         <v-col>
-          
+          <p class="mb-0">{{ info.totalram }} KB</p>
           <p class="mb-0">{{ info.freeram }} KB <v-progress-linear v-model="freerampctfree" /></p>
           <p class="mb-0">{{ info.sharedram }} KB</p>
           <p class="mb-0">{{ info.bufferram }} KB</p>
@@ -35,7 +36,7 @@ export default {
   },
   computed: {
     freerampctfree() {
-      return ((this.info.freeram/60140) * 100).toFixed(3);
+      return ((this.info.freeram/this.info.totalram) * 100).toFixed(3);
     }
   },
   methods: {},
