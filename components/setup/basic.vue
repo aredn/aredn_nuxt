@@ -1,7 +1,7 @@
 <template>
   <v-card flat>
     <v-card-text>
-      <h3>SETUP_BASIC</h3>
+      <h3>SETUP BASIC</h3>
       <p>Node name</p>
       <p>Node description</p>
       <p>Node password</p>
@@ -11,7 +11,7 @@
 
 <script>
 export default {
-  name: "Setup-Basic",
+  name: "setup-basic",
   created() {},
   data() {
     return {};

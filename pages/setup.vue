@@ -5,13 +5,7 @@
     </v-col>
   </v-row> -->
   <v-card>
-    <v-tabs
-      v-model="tab"
-      background-color="primary"
-      centered
-      dark
-      icons-and-text
-    >
+    <v-tabs v-model="tab" background-color="primary" centered dark icons-and-text>
       <v-tabs-slider></v-tabs-slider>
 
       <v-tab href="#tab-setup-basic">
@@ -36,15 +30,14 @@
         Optional
         <v-icon>mdi-tune</v-icon>
       </v-tab>
-      <v-tab href="#tab-6">
+      <v-tab href="#tab-setup-tunnels-in">
         Inbound Tunnels
         <v-icon>mdi-arrow-down-bold-circle</v-icon>
       </v-tab>
-       <v-tab href="#tab-7">
+      <v-tab href="#tab-setup-tunnels-out">
         Outbound Tunnels
         <v-icon>mdi-arrow-up-bold-circle</v-icon>
       </v-tab>
-
     </v-tabs>
 
     <v-tabs-items v-model="tab">
@@ -63,30 +56,23 @@
       <v-tab-item value="tab-setup-optional">
         <setup-optional />
       </v-tab-item>
-      <v-tab-item
-        v-for="i in [6,7]"
-        :key="i"
-        :value="'tab-' + i"
-      >
-        <v-card flat>
-          <v-card-text>{{ text }}</v-card-text>
-        </v-card>
+      <v-tab-item value="tab-setup-tunnels-in">
+        <setup-tunnels-in />
+      </v-tab-item>
+      <v-tab-item value="tab-setup-tunnels-out">
+        <setup-tunnels-out />
       </v-tab-item>
     </v-tabs-items>
   </v-card>
 </template>
 
 <script>
-import SetupBasic from '~/components/setup/optional.vue'
 export default {
-  components: { SetupBasic },
-  data () {
+  data() {
     return {
       tab: null,
-      text: 'This is where the form controls will be located.  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-    }
+    };
   },
-  created() {    
-  }
-}
+  created() {},
+};
 </script>

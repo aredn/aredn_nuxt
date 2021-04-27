@@ -3,7 +3,6 @@ import VuetifyLoaderPlugin from 'vuetify-loader/lib/plugin'
 
 export default {
   env: {
-    // apiROOT: ((process.env.NODE_ENV !== 'production') ? 'http://localnode.local.mesh:8080' : 'http://192.168.0.47:8080'),
     apiROOT: ((process.env.NODE_ENV === 'development') ? 'http://localnode.local.mesh:8080/cgi-bin' : 'http://192.168.0.47:8080/cgi-bin'),
   },
 

@@ -1,7 +1,7 @@
 <template>
   <v-card flat>
     <v-card-text>
-      <h3>SETUP_OPTIONAL</h3>
+      <h3>SETUP OPTIONAL</h3>
       <p>Lat</p>
       <p>Lon</p>
       <p>Grid square</p>
@@ -13,7 +13,7 @@
 
 <script>
 export default {
-  name: "Setup-optional",
+  name: "setup-optional",
   created() {},
   data() {
     return {};
