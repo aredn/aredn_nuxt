@@ -1,14 +1,13 @@
 <template>
   <div>
-    <setup-wan-basic />
-    <setup-wan-advanced />
-    <setup-wan-wificlient />
+    <setup-basic-lanbasic />
+    <setup-basic-lanap />
   </div>
 </template>
 
 <script>
 export default {
-  name: "Setup-WAN",
+  name: "setup-basic-lan",
   created() {},
   data() {
     return {};
