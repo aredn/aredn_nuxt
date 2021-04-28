@@ -1,10 +1,44 @@
 <template>
   <v-card flat>
     <v-card-text>
-      <h3>SETUP BASIC</h3>
-      <p>Node name</p>
-      <p>Node description</p>
-      <p>Node password</p>
+      <form>
+        <v-text-field
+          v-model="name"
+          :counter="25"
+          label="Node Name"
+          required
+          filled
+        ></v-text-field>
+        <v-text-field
+          v-model="description"
+          label="Node Description"
+          :counter="50"
+          filled
+        ></v-text-field>
+        <v-row>
+          <v-col>
+            <v-text-field
+              v-model="password1"
+              :type="password"
+              label="Password"
+              :counter="50"
+              filled
+            ></v-text-field>
+          </v-col>
+          <v-spacer />
+          <v-col>
+            <v-text-field
+              v-model="password2"
+              :type="password"
+              label="Verify Password"
+              :counter="50"
+              filled
+            ></v-text-field>
+          </v-col>
+        </v-row>
+        <v-btn class="mr-4" @click="submit"> Save </v-btn>
+        <v-btn @click="clear"> Clear </v-btn>
+      </form>
     </v-card-text>
   </v-card>
 </template>
@@ -14,10 +48,26 @@ export default {
   name: "setup-basic",
   created() {},
   data() {
-    return {};
+    return {
+      name: "",
+      description: "",
+      password1: "",
+      password2: "",
+    };
   },
   props: {},
-  methods: {},
+  computed: {},
+  methods: {
+    submit() {
+      alert("submit");
+    },
+    clear() {
+      this.name = "";
+      this.description = "";
+      this.password1 = "";
+      this.password2 = "";
+    },
+  },
 };
 </script>
 

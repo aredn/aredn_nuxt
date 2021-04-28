@@ -12,8 +12,6 @@
     "@mdi/font": "^5.9.55",
     "@nuxt/http": "^0.6.4",
     "@nuxtjs/axios": "^5.13.1",
-    "@vuelidate/core": "^2.0.0-alpha.16",
-    "@vuelidate/validators": "^2.0.0-alpha.13",
     "core-js": "^3.9.1",
     "nuxt": "^2.15.3"
   },
