@@ -30,13 +30,9 @@
         Optional
         <v-icon>mdi-tune</v-icon>
       </v-tab>
-      <v-tab href="#tab-setup-tunnels-in">
-        Inbound Tunnels
-        <v-icon>mdi-arrow-down-bold-circle</v-icon>
-      </v-tab>
-      <v-tab href="#tab-setup-tunnels-out">
-        Outbound Tunnels
-        <v-icon>mdi-arrow-up-bold-circle</v-icon>
+      <v-tab href="#tab-setup-tunnels">
+        Tunnels
+        <v-icon>mdi-cloud</v-icon>
       </v-tab>
     </v-tabs>
 
@@ -56,11 +52,8 @@
       <v-tab-item value="tab-setup-optional">
         <setup-optional />
       </v-tab-item>
-      <v-tab-item value="tab-setup-tunnels-in">
-        <setup-tunnels-in />
-      </v-tab-item>
-      <v-tab-item value="tab-setup-tunnels-out">
-        <setup-tunnels-out />
+      <v-tab-item value="tab-setup-tunnels">
+        <setup-tunnels />
       </v-tab-item>
     </v-tabs-items>
   </v-card>
