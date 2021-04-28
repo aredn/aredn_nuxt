@@ -1,7 +1,7 @@
 <template>
   <v-card flat>
     <v-card-text>
-      <form>
+      <form @submit.prevent="handleSubmit" method="POST">
         <v-text-field
           v-model="name"
           :counter="25"
@@ -36,7 +36,7 @@
             ></v-text-field>
           </v-col>
         </v-row>
-        <v-btn class="mr-4" @click="submit"> Save </v-btn>
+        <v-btn class="mr-4" type="submit"> Save </v-btn>
         <v-btn @click="clear"> Clear </v-btn>
       </form>
     </v-card-text>
@@ -58,8 +58,8 @@ export default {
   props: {},
   computed: {},
   methods: {
-    submit() {
-      alert("submit");
+    handleSubmit(d) {
+      alert("submit!");
     },
     clear() {
       this.name = "";
