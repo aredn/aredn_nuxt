@@ -8,10 +8,10 @@
     <v-card-text>
       <v-row>
         <v-col class="text-end">
-          <p class="label">Uptime (sec):</p>
-          <p class="label">Load Avg (1min):</p>
-          <p class="label">Load Avg (5min):</p>
-          <p class="label">Load Avg (15min):</p>
+          <p class="label">Uptime:</p>
+          <p class="label">Load (1min):</p>
+          <p class="label">Load (5min):</p>
+          <p class="label">Load (15min):</p>
         </v-col>
         <v-col>
           <!-- {{ info.loads[0] }} -->

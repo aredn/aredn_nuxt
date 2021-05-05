@@ -3,7 +3,7 @@
     <v-card-title class="headline">
       Location
       <v-spacer />
-      <v-icon color="green">mdi-map-marker</v-icon>
+      <v-icon color="red">mdi-map-marker</v-icon>
     </v-card-title>
     <v-card-text>
       <v-row>
