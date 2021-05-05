@@ -3,21 +3,21 @@
     <v-card-title class="headline">
       Mesh RF
       <v-spacer />
-      <v-icon color="blue">mdi-wifi</v-icon>
+      <v-icon color="green">mdi-wifi</v-icon>
     </v-card-title>
     <v-card-text>
       <v-row>
         <v-col class="text-end">
           <p class="label">SSID:</p>
           <p class="label">Channel:</p>
-          <p class="label">Bandwidth:</p>
-          <p class="label">Frequency:</p>
+          <p class="label">Bandwidth (MHz):</p>
+          <p class="label">Frequency (MHz):</p>
         </v-col>
         <v-col>
-          <p class="mb-0">{{ info.ssid }}</p>
-          <p class="mb-0">{{ info.channel }}</p>
-          <p class="mb-0">{{ info.chanbw }} MHz</p>
-          <p class="mb-0">{{ info.frequency }}</p>
+          <p class="mb-0">{{ info.ssid === nil ? "Disabled" : info.ssid }}</p>
+          <p class="mb-0">{{ info.channel === nil ? "Disabled" : info.channel }}</p>
+          <p class="mb-0">{{ info.chanbw === nil ? "Disabled" : info.chanbw }}</p>
+          <p class="mb-0">{{ info.frequency === nil ? "Disabled" : info.frequency }}</p>
         </v-col>
       </v-row>
     </v-card-text>

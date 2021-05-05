@@ -3,7 +3,7 @@
     <v-card-title class="headline">
       System
       <v-spacer />
-      <v-icon color="amber">mdi-information</v-icon>
+      <v-icon color="blue">mdi-information</v-icon>
     </v-card-title>
     <v-card-text>
       <v-row>

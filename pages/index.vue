@@ -2,6 +2,15 @@
   <div>
     <!-- ROW 1 -->
     <v-row justify="center" align="stretch">
+      <v-col cols="7">
+        <SystemInfo :info="sysinfo" />
+      </v-col>
+      <v-col cols=5>
+        <Location :info="location" />
+      </v-col>
+    </v-row>
+    <!-- ROW 2 -->
+    <v-row justify="center" align="stretch">
       <v-col cols="4">
         <IPAddresses :info="ip"/>
       </v-col>
@@ -9,30 +18,21 @@
         <MeshRF :info="meshrf" />
       </v-col>
       <v-col cols="4">
-        <Location :info="location" />
-      </v-col>
-    </v-row>
-    <!-- ROW 2 -->
-    <v-row justify="center" align="stretch">
-      <v-col cols="4">
-        <Performance :info="sysinfo"/>
-      </v-col>
-      <v-col cols="4">
         <OLSRInfo :info="olsr" />
-      </v-col>
-      <v-col cols="4">
-        <FilesystemInfo :info="storage" />
       </v-col>
     </v-row>
     <!-- ROW 3 -->
     <v-row justify="center" align="stretch">
-      <v-col cols="6">
-        <SystemInfo :info="sysinfo" />
+      <v-col cols="4">
+        <FilesystemInfo :info="storage" />
       </v-col>
-      <v-col cols="6">
+      <v-col cols="4">
         <Memory :info="memory" />
       </v-col>
-    </v-row>    
+      <v-col cols="4">
+        <Performance :info="sysinfo"/>
+      </v-col>
+    </v-row>
   </div>
 </template>
 
@@ -71,7 +71,7 @@ export default {
     } catch (error) {
       console.log("`ERROR: ${error}`")
     }
-      
+
   }
 }
 </script>

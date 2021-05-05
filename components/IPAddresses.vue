@@ -3,7 +3,7 @@
     <v-card-title class="headline">
       IP Addresses
       <v-spacer />
-      <v-icon color="blue">mdi-ip-network</v-icon>
+      <v-icon color="amber">mdi-ip-network</v-icon>
     </v-card-title>
     <v-card-text>
       <v-row>
