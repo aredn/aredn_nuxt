@@ -52,6 +52,9 @@
           >{{ alert.local }}</BaseAlert
         >
       </v-col>
+      <v-col cols="2">
+        <v-btn small light :href="legacyUrl">Go to Legacy UI</v-btn>
+      </v-col>
       <v-col cols="1">
         <v-switch @click="toggleTheme" v-model="darkmode" label="Dark" />
       </v-col>
@@ -91,9 +94,8 @@
 import BaseAlert from "~/components/common/BaseAlert";
 import { mapMutations } from "vuex";
 
-// const dataService = "/api?common=sysinfo,alerts";
-// const dataService = process.env.apiROOT + "/api?common=sysinfo,alerts";
-const dataService = "http://localnode.local.mesh:8080/cgi-bin/api?common=sysinfo,alerts";
+const dataService = process.env.apiROOT + "/api?common=sysinfo,alerts";
+// const dataService = "http://localnode.local.mesh:8080/cgi-bin/api?common=sysinfo,alerts";
 
 export default {
   components: {
@@ -102,6 +104,7 @@ export default {
   },
   data() {
     return {
+      legacyUrl: process.env.apiROOT + "/status",
       clipped: true,
       drawer: true,
       fixed: true,
@@ -188,6 +191,9 @@ export default {
     },
   },
   methods: {
+    debug() {
+      return JSON.stringify(process.env.apiROOT);
+    },
     toggleTheme() {
       this.$vuetify.theme.dark = this.darkmode;
     },
