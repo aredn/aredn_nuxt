@@ -3,7 +3,7 @@
     <v-card-title class="headline">
       Memory
       <v-spacer />
-      <v-icon color="amber">mdi-memory</v-icon>
+      <v-icon color="blue">mdi-memory</v-icon>
     </v-card-title>
     <v-card-text>
       <v-row>

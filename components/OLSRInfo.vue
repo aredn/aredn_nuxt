@@ -3,7 +3,7 @@
     <v-card-title class="headline">
       OLSR
       <v-spacer />
-      <v-icon color="green">mdi-routes</v-icon>
+      <v-icon color="blue">mdi-routes</v-icon>
     </v-card-title>
     <v-card-text>
       <v-row>
