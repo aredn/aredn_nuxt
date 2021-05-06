@@ -11,7 +11,7 @@
           <p class="label">SSID:</p>
           <p class="label">Channel:</p>
           <p class="label">Bandwidth (MHz):</p>
-          <p class="label">Frequency (MHz):</p>
+          <p class="label">Frequency (GHz):</p>
         </v-col>
         <v-col>
           <p class="mb-0">{{ info.ssid === nil ? "Disabled" : info.ssid }}</p>
