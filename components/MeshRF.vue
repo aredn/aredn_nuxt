@@ -16,7 +16,7 @@
         <v-col>
           <p class="mb-0">{{ info.ssid === undefined ? "Disabled" : info.ssid }}</p>
           <p class="mb-0">{{ info.channel === undefined ? "Disabled" : info.channel }}</p>
-          <p class="mb-0">{{ info.channel === undefined ? "Disabled" : info.chanbw }}</p>
+          <p class="mb-0">{{ info.chanbw === undefined ? "Disabled" : info.chanbw }}</p>
           <p class="mb-0">{{ info.frequency === undefined ? "Disabled" : info.frequency }}</p>
         </v-col>
       </v-row>
