@@ -23,8 +23,39 @@
             <v-list-item-title v-text="item.title" />
           </v-list-item-content>
         </v-list-item>
+
+        <v-list-group
+          prepend-icon="mdi-tools"
+          no-action
+        >
+          <template v-slot:activator>
+            <v-list-item-content>
+              <v-list-item-title>Tools</v-list-item-title>
+            </v-list-item-content>
+          </template>
+
+          <template v-for="(tool, i) in tools">
+            <v-list-item
+              :key="i"
+              :to="tool.to"
+              router
+              exact
+              v-show="!tool.auth || (isAuthenticated() && tool.auth)"
+            >
+
+              <v-list-item-title>
+                <v-list-item-title>{{ tool.title }}</v-list-item-title>
+              </v-list-item-title>
+              <v-list-item-icon>
+                <v-icon>{{ tool.icon }}</v-icon>
+              </v-list-item-icon>
+            </v-list-item>
+          </template>
+        </v-list-group>
       </v-list>
+
     </v-navigation-drawer>
+
     <v-app-bar :clipped-left="clipped" fixed app>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-btn icon @click.stop="miniVariant = !miniVariant">
@@ -128,18 +159,6 @@ export default {
           auth: false,
         },
         {
-          icon: "mdi-signal",
-          title: "Signal Chart",
-          to: "/signal",
-          auth: false,
-        },
-        {
-          icon: "mdi-wifi",
-          title: "WiFi Scan",
-          to: "/scan",
-          auth: false,
-        },
-        {
           icon: "mdi-arrow-down-bold-circle",
           title: "Inbound Tunnels",
           to: "/tunnelsin",
@@ -170,6 +189,23 @@ export default {
           auth: false,
         },
       ],
+
+      tools: [
+        {
+          icon: "mdi-signal",
+          title: "Signal Chart",
+          to: "/signal",
+          auth: false,
+        },
+        {
+          icon: "mdi-wifi",
+          title: "WiFi Scan",
+          to: "/scan",
+          auth: false,
+        },
+      ],
+
+
       miniVariant: false,
       right: true,
       rightDrawer: false,
