@@ -7,13 +7,13 @@
     </v-card-title>
     <v-card-text>
       <v-row>
-        <v-col class="text-end">
+        <v-col class="text-end" cols="4">
           <p class="label">Model:</p>
           <p class="label">Target Type:</p>
           <p class="label">Firmware Version:</p>
-          <p class="label">Node Date/time: </p>
+          <p class="label">Node Date/time:</p>
         </v-col>
-        <v-col>
+        <v-col cols="8">
           <p class="mb-0">{{ info.model }}</p>
           <p class="mb-0">{{ info.target_type }}</p>
           <p class="mb-0">{{ info.firmware_version }}</p>
@@ -32,7 +32,7 @@ export default {
     return {};
   },
   props: {
-    info: {}
+    info: {},
   },
   methods: {},
 };
@@ -42,4 +42,5 @@ export default {
 .label {
   margin-bottom: 0;
   font-weight: bold;
-}</style>
+}
+</style>
