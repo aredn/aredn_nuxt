@@ -61,7 +61,7 @@
       <v-btn icon @click.stop="miniVariant = !miniVariant">
         <v-icon>mdi-{{ `chevron-${miniVariant ? "right" : "left"}` }}</v-icon>
       </v-btn>
-      <v-toolbar-title v-text="title" />&nbsp;[
+      <v-toolbar-title v-text="title" />&nbsp; [
       <v-toolbar-title class="font-weight-thin" v-text="desc" />]
       <v-spacer />
       <v-col cols="2">
@@ -148,13 +148,13 @@ export default {
         },
         {
           icon: "mdi-spider-web",
-          title: "Nodes",
+          title: "Mesh Nodes",
           to: "/nodes",
           auth: false,
         },
         {
           icon: "mdi-apps",
-          title: "Services",
+          title: "Mesh Services",
           to: "/services",
           auth: false,
         },
