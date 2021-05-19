@@ -6,13 +6,13 @@
         <SystemInfo :info="sysinfo" />
       </v-col>
       <v-col cols="6">
-        <Performance :info="sysinfo"/>
+        <Performance :info="sysinfo" />
       </v-col>
     </v-row>
     <!-- ROW 2 -->
     <v-row justify="center" align="stretch">
       <v-col cols="4">
-        <IPAddresses :info="ip"/>
+        <IPAddresses :info="ip" />
       </v-col>
       <v-col cols="4">
         <MeshRF :info="meshrf" />
@@ -29,7 +29,7 @@
       <v-col cols="4">
         <Memory :info="memory" />
       </v-col>
-      <v-col cols=4>
+      <v-col cols="4">
         <Location :info="location" />
       </v-col>
     </v-row>
@@ -37,13 +37,16 @@
 </template>
 
 <script>
-const dataService = process.env.apiROOT + "/api?status=ip,meshrf,location,sysinfo,olsr,storage,memory";
+const dataService =
+  process.env.apiROOT + "/api?status=ip,meshrf,location,sysinfo,olsr,storage,memory";
 
 export default {
   name: "Status",
   components: {},
-  head: {
-    title: "Status"
+  head() {
+    return {
+      title: this.$store.state.nodename,
+    };
   },
   data() {
     return {
@@ -54,13 +57,12 @@ export default {
       sysinfo: {},
       olsr: {},
       storage: {},
-      memory: {}
-    }
+      memory: {},
+    };
   },
   async fetch() {
     try {
-      this.info = await fetch(dataService)
-        .then(res => res.json());
+      this.info = await fetch(dataService).then((res) => res.json());
       this.ip = this.info.pages.status.ip;
       this.meshrf = this.info.pages.status.meshrf;
       this.location = this.info.pages.status.location;
@@ -69,9 +71,8 @@ export default {
       this.storage = this.info.pages.status.storage;
       this.memory = this.info.pages.status.memory;
     } catch (error) {
-      console.log("`ERROR: ${error}`")
+      console.log("`ERROR: ${error}`");
     }
-
-  }
-}
+  },
+};
 </script>

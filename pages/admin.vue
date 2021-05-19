@@ -13,3 +13,15 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  name: "Admin",
+  components: {},
+  head() {
+    return {
+      title: this.$store.state.nodename,
+    };
+  },
+};
+</script>

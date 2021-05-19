@@ -5,6 +5,11 @@
 <script>
 export default {
   name: "Login",
+  head() {
+    return {
+      title: this.$store.state.nodename,
+    };
+  },
   created() {},
   data() {
     return {};

@@ -16,7 +16,7 @@
           </v-container>
         </v-expansion-panel-header>
         <v-expansion-panel-content
-          >Route: <v-chip :href="makeLink('localnode')">thisnode</v-chip> 1.1
+          >Route: <v-chip :href="makeLink()">{{ $store.state.nodename }}</v-chip> 1.1
           <v-chip :href="makeLink('node675')">node675</v-chip> 2.0
           <v-chip :href="makeLink(node.name)">{{ node.name }}</v-chip>
         </v-expansion-panel-content>
@@ -62,7 +62,11 @@ export default {
   },
   methods: {
     makeLink(nodename) {
-      return `http://${nodename}.local.mesh:8080`;
+      if (nodename) {
+        return `http://${nodename}.local.mesh:8080`;
+      } else {
+        return `http://${this.$store.state.nodename}.local.mesh:8080`;
+      }
     },
   },
 };

@@ -31,6 +31,11 @@
 const dataService = process.env.apiROOT + "/api?mesh=localhosts,currentneighbors";
 
 export default {
+  head() {
+    return {
+      title: this.$store.state.nodename,
+    };
+  },
   data() {
     return {
       tab: null,

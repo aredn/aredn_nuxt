@@ -40,6 +40,11 @@
 
 <script>
 export default {
+  head() {
+    return {
+      title: this.$store.state.nodename,
+    };
+  },
   data() {
     return {
       tab: null,
