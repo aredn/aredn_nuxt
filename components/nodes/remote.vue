@@ -5,15 +5,20 @@
         <v-expansion-panel-header>
           <v-container>
             <v-row align="start">
-              <v-col cols="6">{{ node.name }}</v-col>
+              <v-col cols="6">
+                <v-chip :href="makeLink(node.name)">
+                  {{ node.name }}
+                </v-chip>
+              </v-col>
               <v-spacer></v-spacer>
               <v-col cols="6">ETX: {{ node.etx }}</v-col>
             </v-row>
           </v-container>
         </v-expansion-panel-header>
         <v-expansion-panel-content
-          >Route: <v-chip>thisnode</v-chip> 1.1 <v-chip>node675</v-chip> 2.0
-          <v-chip>{{ node.name }}</v-chip>
+          >Route: <v-chip :href="makeLink('localnode')">thisnode</v-chip> 1.1
+          <v-chip :href="makeLink('node675')">node675</v-chip> 2.0
+          <v-chip :href="makeLink(node.name)">{{ node.name }}</v-chip>
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-expansion-panels>
@@ -54,6 +59,11 @@ export default {
   },
   props: {
     info: {},
+  },
+  methods: {
+    makeLink(nodename) {
+      return `http://${nodename}.local.mesh:8080`;
+    },
   },
 };
 </script>
