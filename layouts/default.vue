@@ -24,10 +24,7 @@
           </v-list-item-content>
         </v-list-item>
 
-        <v-list-group
-          prepend-icon="mdi-tools"
-          no-action
-        >
+        <v-list-group prepend-icon="mdi-tools" no-action>
           <template v-slot:activator>
             <v-list-item-content>
               <v-list-item-title>Tools</v-list-item-title>
@@ -42,7 +39,6 @@
               exact
               v-show="!tool.auth || (isAuthenticated() && tool.auth)"
             >
-
               <v-list-item-title>
                 <v-list-item-title>{{ tool.title }}</v-list-item-title>
               </v-list-item-title>
@@ -53,7 +49,6 @@
           </template>
         </v-list-group>
       </v-list>
-
     </v-navigation-drawer>
 
     <v-app-bar :clipped-left="clipped" fixed app>
@@ -61,8 +56,8 @@
       <v-btn icon @click.stop="miniVariant = !miniVariant">
         <v-icon>mdi-{{ `chevron-${miniVariant ? "right" : "left"}` }}</v-icon>
       </v-btn>
-      <v-toolbar-title v-text="title" />&nbsp; [
-      <v-toolbar-title class="font-weight-thin" v-text="desc" />]
+      <v-toolbar-title v-text="title" />&nbsp;
+      <!-- [<v-toolbar-title class="font-weight-thin" v-text="desc" />] -->
       <v-spacer />
       <v-col cols="2">
         <BaseAlert
@@ -204,7 +199,6 @@ export default {
           auth: false,
         },
       ],
-
 
       miniVariant: false,
       right: true,
