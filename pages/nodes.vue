@@ -1,63 +1,32 @@
 <template>
-  <div>
-    <v-row justify="center">
-      <v-col class="text-center">
-          <h1>Nodes</h1>
-      </v-col>
-    </v-row>
-    <v-row justify="center">
-        <v-data-table
-          :headers="headers"
-          :items="nodes"
-          :items-per-page="5"
-          class="elevation-1"
-        ></v-data-table>
-    </v-row>
-  </div>
+  <v-card>
+    <v-tabs v-model="tab" background-color="primary" centered dark icons-and-text>
+      <v-tabs-slider></v-tabs-slider>
+      <v-tab href="#tab-localhosts">Local Hosts
+        <v-icon>mdi-lan</v-icon>
+      </v-tab>
+      <v-tab href="#tab-currentneighbors">Current Neighbors
+        <v-icon>mdi-signal-distance-variant</v-icon>
+      </v-tab>
+      <v-tab href="#tab-remotenodes">Remote Nodes
+        <v-icon>mdi-map-marker-distance</v-icon>
+      </v-tab>
+    </v-tabs>
+    <v-tabs-items v-model="tab">
+      <v-tab-item value="tab-localhosts"><meshnodes-localhosts /></v-tab-item>
+      <v-tab-item value="tab-currentneighbors"><meshnodes-currentneighbors /></v-tab-item>
+      <v-tab-item value="tab-remotenodes"><meshnodes-remotenodes /></v-tab-item>
+    </v-tabs-items>
+  </v-card>
 </template>
 
 <script>
-  export default {
-    data () {
-      return {
-        headers: [
-          { text: 'Name', value: 'name' },
-          { text: 'Interface', value: 'iface' },
-          { text: 'ETX', value: 'etx' },
-        ],
-        nodes: [
-          {
-            name: 'node1',
-            interface: 'tun1',
-            etx: 1.0,
-          },
-          {
-            name: 'node2',
-            interface: 'tun1',
-            etx: 15.0,
-          },
-          {
-            name: 'node3',
-            interface: 'tun1',
-            etx: 1.3,
-          },
-          {
-            name: 'node4',
-            interface: 'tun1',
-            etx: 1.1,
-          },
-          {
-            name: 'node5',
-            interface: 'tun1',
-            etx: 1.2,
-          },
-          {
-            name: 'node6',
-            interface: 'tun1',
-            etx: 4.0,
-          },
-        ],
-      }
-    },
-  }
+export default {
+  data() {
+    return {
+      tab: null,
+    };
+  },
+  created() {},
+};
 </script>
