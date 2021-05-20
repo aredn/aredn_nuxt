@@ -3,47 +3,50 @@
     <!-- ROW 1 -->
     <v-row justify="center" align="stretch">
       <v-col cols="6">
-        <SystemInfo :info="sysinfo" />
+        <status-systeminfo :info="sysinfo" />
       </v-col>
       <v-col cols="6">
-        <Performance :info="sysinfo"/>
+        <status-performance :info="sysinfo" />
       </v-col>
     </v-row>
     <!-- ROW 2 -->
     <v-row justify="center" align="stretch">
       <v-col cols="4">
-        <IPAddresses :info="ip"/>
+        <status-ipaddresses :info="ip" />
       </v-col>
       <v-col cols="4">
-        <MeshRF :info="meshrf" />
+        <status-meshrf :info="meshrf" />
       </v-col>
       <v-col cols="4">
-        <OLSRInfo :info="olsr" />
+        <status-olsrinfo :info="olsr" />
       </v-col>
     </v-row>
     <!-- ROW 3 -->
     <v-row justify="center" align="stretch">
       <v-col cols="4">
-        <FilesystemInfo :info="storage" />
+        <status-filesysteminfo :info="storage" />
       </v-col>
       <v-col cols="4">
-        <Memory :info="memory" />
+        <status-memory :info="memory" />
       </v-col>
-      <v-col cols=4>
-        <Location :info="location" />
+      <v-col cols="4">
+        <status-location :info="location" />
       </v-col>
     </v-row>
   </div>
 </template>
 
 <script>
-const dataService = process.env.apiROOT + "/api?status=ip,meshrf,location,sysinfo,olsr,storage,memory";
+const dataService =
+  process.env.apiROOT + "/api?status=ip,meshrf,location,sysinfo,olsr,storage,memory";
 
 export default {
   name: "Status",
   components: {},
-  head: {
-    title: "Status"
+  head() {
+    return {
+      title: this.$store.state.nodename + " " + this.$options.name,
+    };
   },
   data() {
     return {
@@ -54,13 +57,12 @@ export default {
       sysinfo: {},
       olsr: {},
       storage: {},
-      memory: {}
-    }
+      memory: {},
+    };
   },
   async fetch() {
     try {
-      this.info = await fetch(dataService)
-        .then(res => res.json());
+      this.info = await fetch(dataService).then((res) => res.json());
       this.ip = this.info.pages.status.ip;
       this.meshrf = this.info.pages.status.meshrf;
       this.location = this.info.pages.status.location;
@@ -69,9 +71,8 @@ export default {
       this.storage = this.info.pages.status.storage;
       this.memory = this.info.pages.status.memory;
     } catch (error) {
-      console.log("`ERROR: ${error}`")
+      console.log("`ERROR: ${error}`");
     }
-
-  }
-}
+  },
+};
 </script>

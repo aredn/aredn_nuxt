@@ -36,3 +36,15 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  name: "About",
+  components: {},
+  head() {
+    return {
+      title: this.$store.state.nodename + " " + this.$options.name
+    };
+  },
+};
+</script>

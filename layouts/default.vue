@@ -236,6 +236,9 @@ export default {
     ...mapMutations({
       toggle: "toggle",
     }),
+    ...mapMutations({
+      setNodeName: "setNodeName",
+    }),
   },
   async fetch() {
     // this.info = await $http.$get('http://localnode.local.mesh:8080/cgi-bin/api?common=sysinfo,alerts')
@@ -246,6 +249,7 @@ export default {
     this.desc = this.info.pages.common.sysinfo.description;
     this.alert.aredn = this.info.pages.common.alerts.aredn;
     this.alert.local = this.info.pages.common.alerts.local;
+    this.setNodeName(this.title);
   },
 };
 </script>
