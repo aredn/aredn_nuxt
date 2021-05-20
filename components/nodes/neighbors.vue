@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-container>
-      <v-row justify="center" no-gutters>
+      <v-row class="accent" justify="center" no-gutters>
         <v-col cols="5">Node</v-col>
         <v-col cols="2">IP</v-col>
         <v-col cols="1">Type</v-col>
