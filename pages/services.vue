@@ -12,7 +12,7 @@ export default {
   components: {},
   head() {
     return {
-      title: this.$store.state.nodename,
+      title: this.$store.state.nodename + " " + this.$options.name,
     };
   },
 };
