@@ -30,9 +30,10 @@ const gradients = [
 ];
 
 export default {
+  name: "Signal",
   head() {
     return {
-      title: this.$store.state.nodename,
+      title: this.$store.state.nodename + " " + this.$options.name,
     };
   },
   data: () => ({
