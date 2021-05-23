@@ -20,7 +20,7 @@ export default {
   components: {},
   head() {
     return {
-      title: this.$store.state.nodename + " " + this.$options.name
+      title: this.$store.state.nodename + " " + this.$options.name,
     };
   },
 };

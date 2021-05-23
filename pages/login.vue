@@ -7,7 +7,7 @@ export default {
   name: "Login",
   head() {
     return {
-      title: this.$store.state.nodename + " " + this.$options.name
+      title: this.$store.state.nodename + " " + this.$options.name,
     };
   },
   created() {},
