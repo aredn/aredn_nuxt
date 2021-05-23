@@ -6,7 +6,7 @@
         <status-systeminfo :info="sysinfo" />
       </v-col>
       <v-col cols="4">
-        <status-performance :info="sysinfo" />
+        <status-location :info="location" />
       </v-col>
     </v-row>
     <!-- ROW 2 -->
@@ -30,7 +30,7 @@
         <status-memory :info="memory" />
       </v-col>
       <v-col cols="4">
-        <status-location :info="location" />
+        <status-performance :info="sysinfo" />
       </v-col>
     </v-row>
   </div>
