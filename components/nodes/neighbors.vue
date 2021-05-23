@@ -1,18 +1,26 @@
 <template>
   <div>
+    <v-container>
+      <v-row class="accent" justify="center" no-gutters>
+        <v-col cols="5">Node</v-col>
+        <v-col cols="2">IP</v-col>
+        <v-col cols="1">Type</v-col>
+        <v-col cols="1">LQ</v-col>
+        <v-col cols="1">NLQ</v-col>
+        <v-col cols="2">TxMbps</v-col>
+      </v-row>
+    </v-container>
+
     <v-expansion-panels>
-      <v-expansion-panel v-for="(node, key) in info" :key="key">
+      <v-expansion-panel v-for="(node, ip) in info" :key="ip">
         <v-expansion-panel-header>
           <v-container>
             <v-row align="start">
-              <v-col cols="4">{{ node.hostname }}</v-col>
-              <v-spacer></v-spacer>
-              <v-col cols="2">{{ key }}</v-col>
-              <v-spacer></v-spacer>
-              <v-col cols="2">{{ node.linkQuality * 100 }}%</v-col>
-              <v-spacer></v-spacer>
-              <v-col cols="2">{{ node.neighborLinkQuality * 100 }}%</v-col>
-              <v-spacer></v-spacer>
+              <v-col cols="5">{{ node.hostname }}</v-col>
+              <v-col cols="2">{{ ip }}</v-col>
+              <v-col cols="1">{{ node.linkType }}</v-col>
+              <v-col cols="1">{{ node.linkQuality * 100 }}%</v-col>
+              <v-col cols="1">{{ node.neighborLinkQuality * 100 }}%</v-col>
               <v-col cols="2">...TxMbps...</v-col>
             </v-row>
           </v-container>
