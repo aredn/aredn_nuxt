@@ -8,18 +8,19 @@
     <v-card-text>
       <v-row>
         <v-col class="text-end" cols="4">
+          <p class="label">Description:</p>
           <p class="label">Model:</p>
           <p class="label">Target Type:</p>
           <p class="label">Firmware Version:</p>
           <p class="label">Node Date/time:</p>
-          <p class="label">Description:</p>
         </v-col>
         <v-col cols="8">
+          <p class="mb-0" v-if="info.description">{{ info.description }}</p>
+          <p class="mb-0" v-else>None</p>
           <p class="mb-0">{{ info.model }}</p>
           <p class="mb-0">{{ info.target_type }}</p>
           <p class="mb-0">{{ info.firmware_version }}</p>
           <p class="mb-0">{{ info.date }} {{ info.time }}</p>
-          <p class="mb-0">{{ info.description }}</p>
         </v-col>
       </v-row>
     </v-card-text>
