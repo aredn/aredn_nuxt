@@ -1,13 +1,21 @@
 <template>
   <div>
+    <v-container>
+      <v-row class="accent" justify="center" no-gutters>
+        <v-col cols="6">Hostname</v-col>
+        <v-col cols="3">IP</v-col>
+        <v-col cols="3">Type</v-col>
+      </v-row>
+    </v-container>
+
     <v-expansion-panels>
       <v-expansion-panel v-for="(host, key) in info" :key="key">
         <v-expansion-panel-header>
           <v-container>
             <v-row align="start">
               <v-col cols="6">{{ host.hostnames[0] }}</v-col>
-              <v-spacer></v-spacer>
-              <v-col cols="6">{{ host.ip }}</v-col>
+              <v-col cols="3">{{ host.ip }}</v-col>
+              <v-col cols="3">{{ host.cnxtype }}</v-col>
             </v-row>
           </v-container>
         </v-expansion-panel-header>
