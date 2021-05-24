@@ -56,7 +56,7 @@
       <v-btn icon @click.stop="miniVariant = !miniVariant">
         <v-icon>mdi-{{ `chevron-${miniVariant ? "right" : "left"}` }}</v-icon>
       </v-btn>
-      <v-toolbar-title v-text="title" />&nbsp;
+      <v-toolbar-title v-text="nodeName" />&nbsp;
       <!-- [<v-toolbar-title class="font-weight-thin" v-text="desc" />] -->
       <v-spacer />
       <v-col cols="2">
@@ -118,7 +118,7 @@
 
 <script>
 import BaseAlert from "~/components/common/BaseAlert";
-import { mapMutations } from "vuex";
+import { mapMutations, mapGetters } from "vuex";
 
 const dataService = process.env.apiROOT + "/api?common=sysinfo,alerts";
 // const dataService = "http://localnode.local.mesh:8080/cgi-bin/api?common=sysinfo,alerts";
@@ -203,8 +203,6 @@ export default {
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: "...",
-      desc: "...",
       info: {},
       alert: {
         aredn: "",
@@ -219,6 +217,11 @@ export default {
     isMeshConnected() {
       return true;
     },
+    ...mapGetters({
+      nodeName: "getNodeName",
+      nodeDescription: "getNodeDescription",
+      shortNodeDescription: "getShortNodeDescription",
+    }),
   },
   methods: {
     debug() {
@@ -235,9 +238,8 @@ export default {
     },
     ...mapMutations({
       toggle: "toggle",
-    }),
-    ...mapMutations({
       setNodeName: "setNodeName",
+      setNodeDescription: "setNodeDescription",
     }),
   },
   async fetch() {
@@ -245,11 +247,10 @@ export default {
     // this.info = await fetch('http://localnode.local.mesh:8080/cgi-bin/api?common=sysinfo,alerts')
     // this.info = await fetch('/api?common=sysinfo,alerts')
     this.info = await fetch(dataService).then((res) => res.json());
-    this.title = this.info.pages.common.sysinfo.node;
-    this.desc = this.info.pages.common.sysinfo.description;
     this.alert.aredn = this.info.pages.common.alerts.aredn;
     this.alert.local = this.info.pages.common.alerts.local;
-    this.setNodeName(this.title);
+    this.setNodeName(this.info.pages.common.sysinfo.node);
+    this.setNodeDescription(this.info.pages.common.sysinfo.description);
   },
 };
 </script>

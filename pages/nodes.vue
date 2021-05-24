@@ -28,13 +28,16 @@
 </template>
 
 <script>
-const dataService = process.env.apiROOT + "/api?mesh=localhosts,currentneighbors";
+import { mapMutations, mapGetters } from "vuex";
+
+const dataService =
+  process.env.apiROOT + "/api?mesh=localhosts,currentneighbors,services";
 
 export default {
   name: "Nodes",
   head() {
     return {
-      title: this.$store.state.nodename + " " + this.$options.name,
+      title: this.getNodeName() + " " + this.$options.name,
     };
   },
   data() {
@@ -45,14 +48,25 @@ export default {
       remotenodes: {},
     };
   },
+  methods: {
+    ...mapMutations({
+      addServices: "services/add",
+    }),
+    ...mapGetters({
+      getServicesByHost: "services/getServicesByHost",
+      getFQNodeName: "getFQNodeName",
+      getNodeName: "getNodeName",
+    }),
+  },
   async fetch() {
     try {
       this.info = await fetch(dataService).then((res) => res.json());
       this.localhosts = this.info.pages.mesh.localhosts;
       this.currentneighbors = this.info.pages.mesh.currentneighbors;
       this.remotenodes = this.info.pages.mesh.remotenodes;
+      this.addServices(this.info.pages.mesh.services);
     } catch (error) {
-      console.log("`ERROR: ${error}`");
+      console.log("ERROR: " + error);
     }
   },
 };

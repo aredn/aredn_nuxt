@@ -1,13 +1,13 @@
 <template>
   <div>
-    <v-container>
+    <v-container multiple>
       <v-row class="accent" justify="center" no-gutters>
         <v-col cols="5">Node</v-col>
         <v-col cols="2">IP</v-col>
         <v-col cols="1">Type</v-col>
         <v-col cols="1">LQ</v-col>
         <v-col cols="1">NLQ</v-col>
-        <v-col cols="2">TxMbps</v-col>
+        <v-col cols="2">Est.Thru</v-col>
       </v-row>
     </v-container>
 
@@ -19,22 +19,15 @@
               <v-col cols="5">{{ node.hostname }}</v-col>
               <v-col cols="2">{{ ip }}</v-col>
               <v-col cols="1">{{ node.linkType }}</v-col>
-              <v-col cols="1">{{ node.linkQuality * 100 }}%</v-col>
-              <v-col cols="1">{{ node.neighborLinkQuality * 100 }}%</v-col>
-              <v-col cols="2">...TxMbps...</v-col>
+              <v-col cols="1">{{ (node.linkQuality * 100).toFixed(0) }}%</v-col>
+              <v-col cols="1">{{ (node.neighborLinkQuality * 100).toFixed(0) }}%</v-col>
+              <v-col cols="2">{{ node.expected_throughput }}MB/s</v-col>
             </v-row>
           </v-container>
         </v-expansion-panel-header>
         <v-expansion-panel-content>
-          <v-chip class="ma-1" label href="http://host1.local.mesh/service1"
-            >service1</v-chip
-          >
-          <v-chip class="ma-1" label href="http://host1.local.mesh/service2"
-            >service2</v-chip
-          >
-          <v-chip class="ma-1" label href="http://host1.local.mesh/service3"
-            >service3</v-chip
-          >
+          Services:
+          <nodes-servicechips :ip="ip" />
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-expansion-panels>
