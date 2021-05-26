@@ -1,11 +1,11 @@
 <template>
   <div>
     <span v-for="(s, idx) in servicesByIp(ip)" :key="idx" v-show="servicesByIp(ip)">
-      <v-chip class="ma-1" label :href="s.link">
+      <v-chip class="ma-1" label small link :href="s.link">
         {{ s.name }}
       </v-chip>
     </span>
-    <span v-hide="servicesByIp(ip)">No services available</span>
+    <span v-show="servicesByIp(ip).length == 0">No services available</span>
   </div>
 </template>
 
@@ -21,5 +21,6 @@ export default {
       servicesByIp: "services/getServicesByIp",
     }),
   },
+  methods: {},
 };
 </script>

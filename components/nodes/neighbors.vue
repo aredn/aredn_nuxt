@@ -12,7 +12,7 @@
     </v-container>
 
     <v-expansion-panels>
-      <v-expansion-panel v-for="(node, ip) in info" :key="ip">
+      <v-expansion-panel v-for="(node, ip) in currentNeighbors" :key="ip">
         <v-expansion-panel-header>
           <v-container>
             <v-row align="start">
@@ -26,7 +26,6 @@
           </v-container>
         </v-expansion-panel-header>
         <v-expansion-panel-content>
-          Services:
           <nodes-servicechips :ip="ip" />
         </v-expansion-panel-content>
       </v-expansion-panel>
@@ -35,9 +34,36 @@
 </template>
 
 <script>
+import { mapMutations, mapGetters } from "vuex";
+
+const dataService = process.env.apiROOT + "/api?mesh=currentneighbors";
+
 export default {
-  props: {
+  data: {
     info: {},
+  },
+  methods: {
+    ...mapMutations({
+      addCurrentNeighbors: "nodes/addCurrentNeighbors",
+    }),
+    ...mapGetters({
+      getServicesByHost: "services/getServicesByHost",
+      getFQNodeName: "getFQNodeName",
+      getNodeName: "getNodeName",
+    }),
+  },
+  computed: {
+    ...mapGetters({
+      currentNeighbors: "nodes/getCurrentNeighbors",
+    }),
+  },
+  async fetch() {
+    try {
+      this.info = await fetch(dataService).then((res) => res.json());
+      this.addCurrentNeighbors(this.info.pages.mesh.currentneighbors);
+    } catch (error) {
+      console.log("ERROR: " + error);
+    }
   },
 };
 </script>

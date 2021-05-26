@@ -25,7 +25,7 @@
 
     <v-tabs-items v-model="tab">
       <v-tab-item value="tab-setup">
-        <setup />
+        <!-- <setup /> -->
       </v-tab-item>
 
       <v-tab-item value="tab-setup-tunnels">
@@ -39,11 +39,13 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "Setup",
   head() {
     return {
-      title: this.$store.state.nodename + " " + this.$options.name,
+      title: this.getNodeName() + " " + this.$options.name,
     };
   },
   data() {
@@ -52,5 +54,8 @@ export default {
     };
   },
   created() {},
+  methods: {
+    ...mapGetters(["getNodeName"]),
+  },
 };
 </script>

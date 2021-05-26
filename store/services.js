@@ -14,9 +14,6 @@ export const getters = {
   getServices(state) {
     return state.services;
   },
-  getServicesByHost: (state) => (host) => {
-    return state.services.filter(service => service.hostname == host);
-  },
   getServicesByIp: (state) => (ip) => {
     return state.services.filter(service => service.ip == ip);
   },
