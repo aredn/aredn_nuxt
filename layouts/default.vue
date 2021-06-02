@@ -87,7 +87,7 @@
       <v-col cols="1">
         <v-btn class="mx-2" fab dark small color="primary" @click="toggleAuthenticated()">
           <v-icon v-if="isAuthenticated()" dark> mdi-lock </v-icon>
-          <v-icon v-else dark> mdi-lock-open </v-icon>
+          <v-icon v-else dark> mdi-lock-open-variant </v-icon>
         </v-btn>
       </v-col>
       <v-col cols="1">
