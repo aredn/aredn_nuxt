@@ -17,4 +17,7 @@ export const getters = {
   getServicesByIp: (state) => (ip) => {
     return state.services.filter(service => service.ip == ip);
   },
+  getServicesFiltered: (state) => (servicename) => {
+    return state.servicess.filter(service => service.name.includes(servicename));
+  },
 }
