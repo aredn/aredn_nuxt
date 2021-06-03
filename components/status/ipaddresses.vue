@@ -8,15 +8,15 @@
     <v-card-text>
       <v-row>
         <v-col>
-          <p class="label">Wifi:</p>
+          <p class="label">RF:</p>
           <p class="label">LAN:</p>
           <p class="label">WAN:</p>
           <p class="label">Gateway:</p>
         </v-col>
         <v-col>
-          <p class="mb-0">{{ info.wifi === "" ? "DISABLED" : info.wifi }}</p>
+          <p class="mb-0">{{ info.wifi === "" ? "Disabled" : info.wifi }}</p>
           <p class="mb-0">{{ info.lan }}</p>
-          <p class="mb-0">{{ info.wan === "" ? "N/A" : info.wan }}</p>
+          <p class="mb-0">{{ info.wan === "" ? "n/a" : info.wan }}</p>
           <p class="mb-0">{{ info.gateway }}</p>
         </v-col>
       </v-row>
