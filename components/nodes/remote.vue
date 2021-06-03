@@ -1,24 +1,30 @@
 <template>
   <div>
-    <v-expansion-panels>
-      <v-expansion-panel v-for="(node, key) in nodes" :key="key">
+    <v-container>
+      <v-row class="accent" justify="center" no-gutters>
+        <v-col cols="3">Hostname</v-col>
+        <v-col cols="2">ETX</v-col>
+        <v-col cols="7">Services</v-col>
+      </v-row>
+    </v-container>
+    <div v-if="$fetchState.pending">Loading...</div>
+    <v-expansion-panels v-else multiple>
+      <v-expansion-panel v-for="(node, key) in remoteNodes" :key="key">
         <v-expansion-panel-header>
           <v-container>
             <v-row align="start">
-              <v-col cols="6">
-                <v-chip :href="makeLink(node.name)">
-                  {{ node.name }}
-                </v-chip>
+              <v-col cols="3"
+                ><a :href="makeLink(node.name)" target="_new">{{ node.name }}</a></v-col
+              >
+              <v-col cols="2">{{ node.etx }}</v-col>
+              <v-col cols="7">
+                <nodes-servicechips :ip="node.ip" />
               </v-col>
-              <v-spacer></v-spacer>
-              <v-col cols="6">ETX: {{ node.etx }}</v-col>
             </v-row>
           </v-container>
         </v-expansion-panel-header>
         <v-expansion-panel-content
-          >Route: <v-chip :href="makeLink()">{{ $store.state.nodename }}</v-chip> 1.1
-          <v-chip :href="makeLink('node675')">node675</v-chip> 2.0
-          <v-chip :href="makeLink(node.name)">{{ node.name }}</v-chip>
+          ><nodes-traceroute :node="node.name" />
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-expansion-panels>
@@ -26,41 +32,20 @@
 </template>
 
 <script>
+import { mapMutations, mapGetters } from "vuex";
+
+const dataService = process.env.apiROOT + "/api?mesh=remotenodes";
+
 export default {
-  data() {
-    return {
-      nodes: [
-        {
-          name: "node1",
-          etx: "1.0",
-          services: [
-            {
-              name: "service10",
-            },
-            {
-              name: "service11",
-            },
-          ],
-        },
-        {
-          name: "node2",
-          etx: "2.0",
-          services: [
-            {
-              name: "service20",
-            },
-            {
-              name: "service21",
-            },
-          ],
-        },
-      ],
-    };
-  },
-  props: {
-    info: {},
-  },
   methods: {
+    ...mapMutations({
+      addRemoteNodes: "nodes/addRemoteNodes",
+    }),
+    ...mapGetters({
+      getServicesByHost: "services/getServicesByHost",
+      getFQNodeName: "getFQNodeName",
+      getNodeName: "getNodeName",
+    }),
     makeLink(nodename) {
       if (nodename) {
         return `http://${nodename}.local.mesh:8080`;
@@ -68,6 +53,19 @@ export default {
         return `http://${this.$store.state.nodename}.local.mesh:8080`;
       }
     },
+  },
+  computed: {
+    ...mapGetters({
+      remoteNodes: "nodes/getRemoteNodes",
+    }),
+  },
+  async fetch() {
+    try {
+      this.info = await fetch(dataService).then((res) => res.json());
+      this.addRemoteNodes(this.info.pages.mesh.remotenodes);
+    } catch (error) {
+      console.log("ERROR: " + error);
+    }
   },
 };
 </script>

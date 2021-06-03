@@ -16,43 +16,66 @@
       </v-tab>
     </v-tabs>
     <v-tabs-items v-model="tab">
-      <v-tab-item value="tab-localhosts"><nodes-local :info="localhosts" /></v-tab-item>
-      <v-tab-item value="tab-currentneighbors"
-        ><nodes-neighbors :info="currentneighbors"
+      <v-tab-item value="tab-localhosts">
+        <div v-if="$fetchState.pending">Loading...</div>
+        <nodes-local v-else :info="localNodes" />
+      </v-tab-item>
+      <v-tab-item value="tab-currentneighbors">
+        <div v-if="$fetchState.pending">Loading...</div>
+        <nodes-neighbors v-else :info="currentNeighbors"
       /></v-tab-item>
-      <v-tab-item value="tab-remotenodes"
-        ><nodes-remote :info="remotenodes" />
+      <v-tab-item value="tab-remotenodes">
+        <div v-if="$fetchState.pending">Loading...</div>
+        <nodes-remote v-else />
       </v-tab-item>
     </v-tabs-items>
   </v-card>
 </template>
 
 <script>
-const dataService = process.env.apiROOT + "/api?mesh=localhosts,currentneighbors";
+import { mapMutations, mapGetters } from "vuex";
+
+const dataService = process.env.apiROOT + "/api?mesh=localhosts,services";
 
 export default {
   name: "Nodes",
   head() {
     return {
-      title: this.$store.state.nodename + " " + this.$options.name,
+      title: this.getNodeName() + " " + this.$options.name,
     };
   },
   data() {
     return {
       tab: null,
-      localhosts: {},
-      currentneighbors: {},
-      remotenodes: {},
     };
+  },
+  methods: {
+    ...mapMutations({
+      addServices: "services/add",
+      addNodes: "nodes/addNodes",
+      addLocalNodes: "nodes/addLocalNodes",
+      addCurrentNeighbors: "nodes/addCurrentNeighbors",
+    }),
+    ...mapGetters({
+      getServicesByHost: "services/getServicesByHost",
+      getFQNodeName: "getFQNodeName",
+      getNodeName: "getNodeName",
+    }),
+  },
+  computed: {
+    ...mapGetters({
+      localNodes: "nodes/getLocalNodes",
+      currentNeighbors: "nodes/getCurrentNeighbors",
+    }),
   },
   async fetch() {
     try {
       this.info = await fetch(dataService).then((res) => res.json());
-      this.localhosts = this.info.pages.mesh.localhosts;
-      this.currentneighbors = this.info.pages.mesh.currentneighbors;
-      this.remotenodes = this.info.pages.mesh.remotenodes;
+      this.addLocalNodes(this.info.pages.mesh.localhosts);
+      this.addCurrentNeighbors(this.info.pages.mesh.currentneighbors);
+      this.addServices(this.info.pages.mesh.services);
     } catch (error) {
-      console.log("`ERROR: ${error}`");
+      console.log("ERROR: " + error);
     }
   },
 };

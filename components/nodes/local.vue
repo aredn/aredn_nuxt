@@ -8,7 +8,7 @@
       </v-row>
     </v-container>
 
-    <v-expansion-panels>
+    <v-expansion-panels multiple>
       <v-expansion-panel v-for="(host, key) in info" :key="key">
         <v-expansion-panel-header>
           <v-container>
@@ -20,15 +20,7 @@
           </v-container>
         </v-expansion-panel-header>
         <v-expansion-panel-content>
-          <v-chip class="ma-1" label href="http://host1.local.mesh/service1"
-            >service1</v-chip
-          >
-          <v-chip class="ma-1" label href="http://host1.local.mesh/service2"
-            >service2</v-chip
-          >
-          <v-chip class="ma-1" label href="http://host1.local.mesh/service3"
-            >service3</v-chip
-          >
+          <nodes-servicechips :ip="host.ip" />
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-expansion-panels>
@@ -40,5 +32,6 @@ export default {
   props: {
     info: {},
   },
+  computed: {},
 };
 </script>

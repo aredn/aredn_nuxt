@@ -37,6 +37,8 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 const dataService =
   process.env.apiROOT + "/api?status=ip,meshrf,location,sysinfo,olsr,storage,memory";
 
@@ -45,8 +47,11 @@ export default {
   components: {},
   head() {
     return {
-      title: this.$store.state.nodename + " " + this.$options.name,
+      title: this.getNodeName() + " " + this.$options.name,
     };
+  },
+  methods: {
+    ...mapGetters(["getNodeName"]),
   },
   data() {
     return {
