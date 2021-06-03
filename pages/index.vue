@@ -2,11 +2,11 @@
   <div>
     <!-- ROW 1 -->
     <v-row justify="center" align="stretch">
-      <v-col cols="6">
+      <v-col cols="8">
         <status-systeminfo :info="sysinfo" />
       </v-col>
-      <v-col cols="6">
-        <status-performance :info="sysinfo" />
+      <v-col cols="4">
+        <status-location :info="location" />
       </v-col>
     </v-row>
     <!-- ROW 2 -->
@@ -30,7 +30,7 @@
         <status-memory :info="memory" />
       </v-col>
       <v-col cols="4">
-        <status-location :info="location" />
+        <status-performance :info="sysinfo" />
       </v-col>
     </v-row>
   </div>
