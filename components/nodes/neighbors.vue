@@ -21,7 +21,7 @@
               <v-col cols="1">{{ node.linkType }}</v-col>
               <v-col cols="1">{{ (node.linkQuality * 100).toFixed(0) }}%</v-col>
               <v-col cols="1">{{ (node.neighborLinkQuality * 100).toFixed(0) }}%</v-col>
-<v-col cols="2">{{ node.linkType === "RF" ? node.expected_throughput : "n/a" }}</v-col>
+              <v-col cols="2">{{ node.linkType === "RF" ? node.expected_throughput : "n/a" }}</v-col>
             </v-row>
           </v-container>
         </v-expansion-panel-header>
