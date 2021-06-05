@@ -42,8 +42,8 @@ export default {
   data() {
     return {
       info: {},
-  };
-},
+    };
+  },
   methods: {
     ...mapMutations({
       addCurrentNeighbors: "nodes/addCurrentNeighbors",
