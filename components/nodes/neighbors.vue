@@ -39,9 +39,11 @@ import { mapMutations, mapGetters } from "vuex";
 const dataService = process.env.apiROOT + "/api?mesh=currentneighbors";
 
 export default {
-  data: {
-    info: {},
-  },
+  data() {
+    return {
+      info: {},
+  };
+},
   methods: {
     ...mapMutations({
       addCurrentNeighbors: "nodes/addCurrentNeighbors",
