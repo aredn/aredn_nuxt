@@ -7,7 +7,7 @@
         <v-col cols="1">Type</v-col>
         <v-col cols="1">LQ</v-col>
         <v-col cols="1">NLQ</v-col>
-        <v-col cols="2">Est.Thru</v-col>
+        <v-col cols="2">Thru Mb/s</v-col>
       </v-row>
     </v-container>
 
@@ -21,7 +21,7 @@
               <v-col cols="1">{{ node.linkType }}</v-col>
               <v-col cols="1">{{ (node.linkQuality * 100).toFixed(0) }}%</v-col>
               <v-col cols="1">{{ (node.neighborLinkQuality * 100).toFixed(0) }}%</v-col>
-              <v-col cols="2">{{ node.expected_throughput }}MB/s</v-col>
+<v-col cols="2">{{ node.linkType === "RF" ? node.expected_throughput : "n/a" }}</v-col>
             </v-row>
           </v-container>
         </v-expansion-panel-header>
@@ -39,10 +39,8 @@ import { mapMutations, mapGetters } from "vuex";
 const dataService = process.env.apiROOT + "/api?mesh=currentneighbors";
 
 export default {
-  data() {
-    return {
-      info: {},
-    };
+  data: {
+    info: {},
   },
   methods: {
     ...mapMutations({
