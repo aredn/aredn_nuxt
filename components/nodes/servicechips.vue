@@ -1,7 +1,7 @@
 <template>
   <div>
     <span v-for="(s, idx) in servicesByIp(ip)" :key="idx" v-show="servicesByIp(ip)">
-      <v-chip class="ma-1" label small link :href="s.link">
+      <v-chip class="ma-1" label small link :href="s.link" target="_blank" >
         {{ s.name }}
       </v-chip>
     </span>
