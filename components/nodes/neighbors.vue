@@ -6,8 +6,8 @@
         <v-col cols="1">Type</v-col>
         <v-col cols="1">LQ</v-col>
         <v-col cols="1">NLQ</v-col>
-        <v-col cols="2">Est.Thru</v-col>
-        <v-col cols="4">Services</v-col>
+        <v-col cols="1">Est.Thru</v-col>
+        <v-col cols="5">Services</v-col>
       </v-row>
     </v-container>
 
