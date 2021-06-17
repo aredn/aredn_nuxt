@@ -26,7 +26,7 @@
           </v-container>
         </v-expansion-panel-header>
         <v-expansion-panel-content>
-          <nodes-servicechips :ip="ip" />
+          <nodes-servicechips :ip="node.rfip" />
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-expansion-panels>
