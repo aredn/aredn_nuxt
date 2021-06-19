@@ -9,7 +9,7 @@
       </v-row>
     </v-container>
     <div v-if="$fetchState.pending">Loading...</div>
-    <v-expansion-panels v-else multiple>
+    <v-expansion-panels v-else>
       <v-expansion-panel v-for="(node, key) in remoteNodes" :key="key">
         <v-expansion-panel-header>
           <v-container>
