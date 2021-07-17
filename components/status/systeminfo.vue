@@ -21,7 +21,8 @@
           <p class="mb-0">{{ info.firmware_version }}</p>
           <p class="mb-0">{{ info.api_version }}</p>
           <p class="mb-0">{{ info.date }} {{ info.time }}</p>
-          <p class="mb-0">{{ info.description }}</p>
+          <p class="mb-0" v-if="info.description">{{ info.description }}</p>
+          <p class="mb-0" v-else>None</p>
         </v-col>
       </v-row>
     </v-card-text>
