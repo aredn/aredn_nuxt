@@ -11,6 +11,7 @@
           <p class="label">Model:</p>
           <p class="label">Target Type:</p>
           <p class="label">Firmware Version:</p>
+          <p class="label">API Version:</p>
           <p class="label">Node Date/time:</p>
           <p class="label">Description:</p>
         </v-col>
@@ -18,6 +19,7 @@
           <p class="mb-0">{{ info.model }}</p>
           <p class="mb-0">{{ info.target_type }}</p>
           <p class="mb-0">{{ info.firmware_version }}</p>
+          <p class="mb-0">{{ info.api_version }}</p>
           <p class="mb-0">{{ info.date }} {{ info.time }}</p>
           <p class="mb-0">{{ info.description }}</p>
         </v-col>
