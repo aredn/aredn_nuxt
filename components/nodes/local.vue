@@ -1,29 +1,23 @@
 <template>
   <div>
     <v-container>
-      <v-row class="accent" justify="center" no-gutters>
-        <v-col cols="6">Hostname</v-col>
-        <v-col cols="3">IP</v-col>
-        <v-col cols="3">Type</v-col>
+      <v-row class="accent" no-gutters>
+        <v-col cols="3">Hostname</v-col>
+        <v-col cols="2">IP</v-col>
+        <v-col cols="1">Type</v-col>
+        <v-col cols="6">Services</v-col>
       </v-row>
     </v-container>
 
-    <v-expansion-panels multiple>
-      <v-expansion-panel v-for="(host, key) in info" :key="key">
-        <v-expansion-panel-header>
-          <v-container>
-            <v-row align="start">
-              <v-col cols="6">{{ host.hostnames[0] }}</v-col>
-              <v-col cols="3">{{ host.ip }}</v-col>
-              <v-col cols="3">{{ host.cnxtype }}</v-col>
-            </v-row>
-          </v-container>
-        </v-expansion-panel-header>
-        <v-expansion-panel-content>
-          <nodes-servicechips :ip="host.ip" />
-        </v-expansion-panel-content>
-      </v-expansion-panel>
-    </v-expansion-panels>
+    <v-container v-for="(host, key) in info" :key="key">
+      <v-row align="start">
+        <v-col cols="3">{{ host.hostname }}</v-col>
+        <v-col cols="2">{{ host.ip }}</v-col>
+        <v-col cols="1">{{ host.cnxtype }}</v-col>
+        <v-col cols="6"><nodes-servicechips :ip="host.ip" /></v-col>
+      </v-row>
+    </v-container>
+
   </div>
 </template>
 

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-container multiple>
+    <v-container>
       <v-row class="accent" justify="center" no-gutters>
         <v-col cols="5">Node</v-col>
         <v-col cols="2">IP</v-col>
@@ -26,7 +26,7 @@
           </v-container>
         </v-expansion-panel-header>
         <v-expansion-panel-content>
-          <nodes-servicechips :ip="node.rfip" />
+          <nodes-servicechips :ip="ip" />
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-expansion-panels>
