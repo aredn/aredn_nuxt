@@ -1,6 +1,7 @@
 export const state = () => ({
   authenticated: false,
   nodeName: null,
+  tacticalName: null,
   nodeDescription: null
 })
 
@@ -11,6 +12,10 @@ export const mutations = {
   setNodeName(state, nodename) {
     state.nodeName = nodename
   },
+  setTacticalName(state, tacname) {
+    state.tacName = tacname
+  },
+
   setNodeDescription(state, nodedesc) {
     state.nodeDescripion = nodedesc
   }
@@ -19,6 +24,9 @@ export const mutations = {
 export const getters = {
   getNodeName(state) {
     return state.nodeName;
+  },
+  getTacticalName(state) {
+    return state.tacName;
   },
   getFQNodeName(state) {
     return `${state.nodeName}.local.mesh`;
