@@ -70,8 +70,6 @@ export default {
   //   proxy: true,
   // },
 
-
-
   // proxy: {
   //   '/api/': { 
   //     target: 'http://192.168.0.47/cgi-bin/api', 

@@ -1,76 +1,63 @@
 <template>
-  <v-container>
-    <v-expansion-panels>
-      <v-expansion-panel>
-        <v-expansion-panel-header>
-          <template v-slot:default="{ open }">
-            <v-row no-gutters>
-              <v-col cols="4"> Connection #1: {{ trip.name }} </v-col>
-              <v-col cols="8" class="text--secondary">
-                <v-fade-transition leave-absolute>
-                  <span v-if="open" key="0">
-                    Enter a name for this tunnel connection
-                  </span>
-                  <span v-else key="1">
-                    {{ trip.name }}
-                  </span>
-                </v-fade-transition>
-              </v-col>
-            </v-row>
-          </template>
-        </v-expansion-panel-header>
-        <v-expansion-panel-content>
-          <v-text-field
-            v-model="trip.name"
-            placeholder="AREDN Global Tunnel"
-          ></v-text-field>
-          <v-text-field v-model="trip.ip" placeholder="172.73.32.123"></v-text-field>
-          <v-text-field v-model="trip.pass" placeholder="password"></v-text-field>
-        </v-expansion-panel-content>
-      </v-expansion-panel>
-
-      <v-expansion-panel>
-        <v-expansion-panel-header>
-          <template v-slot:default="{ open }">
-            <v-row no-gutters>
-              <v-col cols="4"> Connection #2: {{ trip.name }} </v-col>
-              <v-col cols="8" class="text--secondary">
-                <v-fade-transition leave-absolute>
-                  <span v-if="open" key="0">
-                    Enter a name for this tunnel connection
-                  </span>
-                  <span v-else key="1">
-                    {{ trip.name }}
-                  </span>
-                </v-fade-transition>
-              </v-col>
-            </v-row>
-          </template>
-        </v-expansion-panel-header>
-        <v-expansion-panel-content>
-          <v-text-field
-            v-model="trip.name"
-            placeholder="AREDN Global Tunnel"
-          ></v-text-field>
-          <v-text-field v-model="trip.ip" placeholder="172.73.32.123"></v-text-field>
-          <v-text-field v-model="trip.pass" placeholder="password"></v-text-field>
-        </v-expansion-panel-content>
-      </v-expansion-panel>
-    </v-expansion-panels>
-  </v-container>
+  <div>
+    <v-data-table
+      :headers="headers"
+      :items="clients"
+      hide-default-footer
+      class="elevation-1"
+    >
+      <template v-slot:item.enabled="{ item }">
+        <v-simple-checkbox v-model="item.enabled"></v-simple-checkbox>
+      </template>
+      <template v-slot:item.active="{ item }">
+        <v-icon v-show="item.active">mdi-cloud-check-outline</v-icon>
+        <v-icon v-show="item.active === false">mdi-cloud-outline</v-icon>
+      </template>
+    </v-data-table>
+  </div>
 </template>
 
 <script>
 export default {
   data: () => ({
-    date: null,
-    trip: {
-      name: "",
-      location: null,
-      start: null,
-      end: null,
-    },
-    locations: ["Australia", "Barbados", "Chile", "Denmark", "Ecuador", "France"],
+    headers: [
+      { text: "Enabled", value: "enabled" },
+      { text: "Server", value: "server" },
+      { text: "Password", value: "password" },
+      { text: "Net", value: "net" },
+      { text: "Active", value: "active" },
+      { text: "Action", value: "action" },
+      { text: "Comment", value: "comment" },
+    ],
+    clients: [
+      {
+        enabled: true,
+        server: "server1.noip.me",
+        password: "12345",
+        net: "172.31.x.x",
+        active: true,
+        action: "",
+        comment: "",
+      },
+      {
+        enabled: false,
+        server: "server2.noip.me",
+        password: "12345",
+        net: "172.31.x.y",
+        active: false,
+        action: "",
+        comment: "",
+      },
+      {
+        enabled: true,
+        server: "server3.noip.me",
+        password: "12345",
+        net: "172.31.x.z",
+        active: false,
+        action: "",
+        comment: "",
+      },
+    ],
   }),
 };
 </script>

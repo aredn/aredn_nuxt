@@ -2,19 +2,25 @@
   <v-card flat>
     <v-card-text>
       <form @submit.prevent="handleSubmit" method="POST">
-        <v-text-field
-          v-model="name"
-          :counter="25"
-          label="Node Name"
-          required
-          filled
-        ></v-text-field>
-        <v-text-field
-          v-model="description"
-          label="Node Description"
-          :counter="50"
-          filled
-        ></v-text-field>
+        <v-row>
+          <v-col>
+            <v-text-field
+              v-model="name"
+              :counter="25"
+              label="Node Name"
+              required
+              filled
+            ></v-text-field>
+          </v-col>
+          <v-col>
+            <v-text-field
+              v-model="description"
+              label="Node Description"
+              :counter="50"
+              filled
+            ></v-text-field>
+          </v-col>
+        </v-row>
         <v-row>
           <v-col>
             <v-text-field

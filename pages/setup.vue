@@ -25,7 +25,10 @@
 
     <v-tabs-items v-model="tab">
       <v-tab-item value="tab-setup">
-        <!-- <setup /> -->
+        <setup-basic />
+        <setup-basic-meshrf />
+        <setup-basic-lan />
+        <setup-basic-wan />
       </v-tab-item>
 
       <v-tab-item value="tab-setup-tunnels">

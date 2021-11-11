@@ -35,9 +35,9 @@ export default {
   methods: {
     getColor(td) {
       console.log(td);
-      if (td > 400) {
+      if (td > 200) {
         return "red";
-      } else if (td > 200) {
+      } else if (td > 100) {
         return "amber ";
       } else {
         return "";
