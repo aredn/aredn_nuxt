@@ -12,11 +12,6 @@
         Core Setup
         <v-icon>mdi-cog</v-icon>
       </v-tab>
-
-      <v-tab href="#tab-setup-tunnels">
-        Tunnels
-        <v-icon>mdi-cloud</v-icon>
-      </v-tab>
       <v-tab href="#tab-setup-advanced">
         Advanced Config
         <v-icon>mdi-application-cog</v-icon>
@@ -26,13 +21,14 @@
     <v-tabs-items v-model="tab">
       <v-tab-item value="tab-setup">
         <setup-basic />
+        <v-divider />
         <setup-basic-meshrf />
+        <v-divider />
         <setup-basic-lan />
+        <v-divider />
         <setup-basic-wan />
       </v-tab-item>
 
-      <v-tab-item value="tab-setup-tunnels">
-        <setup-tunnels />
       </v-tab-item>
       <v-tab-item value="tab-setup-advanced">
         <setup-advanced />
@@ -46,9 +42,10 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "Setup",
+  middleware: "authenticated",
   head() {
     return {
-      title: this.getNodeName() + " " + this.$options.name,
+      title: this.getNodeName() + " [" + this.$options.name + "]",
     };
   },
   data() {

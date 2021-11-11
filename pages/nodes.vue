@@ -41,7 +41,7 @@ export default {
   name: "Nodes",
   head() {
     return {
-      title: this.getNodeName() + " " + this.$options.name,
+      title: this.getNodeName() + " [" + this.$options.name + "]",
     };
   },
   data() {

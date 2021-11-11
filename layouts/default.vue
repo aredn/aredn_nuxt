@@ -169,13 +169,13 @@ export default {
           icon: "mdi-cog",
           title: "Setup",
           to: "/setup",
-          auth: false,
+          auth: true,
         },
         {
           icon: "mdi-file-upload",
           title: "Administration",
           to: "/admin",
-          auth: false,
+          auth: true,
         },
         {
           icon: "mdi-account-supervisor",

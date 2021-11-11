@@ -17,6 +17,7 @@
 <script>
 export default {
   name: "Admin",
+  middleware: "authenticated",
   components: {},
   head() {
     return {

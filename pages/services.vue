@@ -14,7 +14,7 @@ export default {
   components: {},
   head() {
     return {
-      title: this.getNodeName() + " " + this.$options.name,
+      title: this.getNodeName() + " [" + this.$options.name + "]",
     };
   },
   methods: {

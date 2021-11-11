@@ -6,13 +6,13 @@ export const state = () => ({
 
 export const mutations = {
   toggle(state) {
-    this.authenticated = !this.authenticated
+    state.authenticated = !state.authenticated;
   },
   setNodeName(state, nodename) {
-    state.nodeName = nodename
+    state.nodeName = nodename;
   },
   setNodeDescription(state, nodedesc) {
-    state.nodeDescripion = nodedesc
+    state.nodeDescripion = nodedesc;
   }
 }
 
@@ -28,5 +28,8 @@ export const getters = {
   },
   getShortNodeDescription(state) {
     return String(state.nodeDescription).substring(0, 25);
+  },
+  isAuthenticated(state) {
+    return state.authenticated;
   },
 }

@@ -38,13 +38,18 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "About",
   components: {},
   head() {
     return {
-      title: this.$store.state.nodename + " " + this.$options.name,
+      title: this.getNodeName() + " [" + this.$options.name + "]",
     };
+  },
+  methods: {
+    ...mapGetters(["getNodeName"]),
   },
 };
 </script>
