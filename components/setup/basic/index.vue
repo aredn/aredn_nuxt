@@ -31,7 +31,6 @@
               filled
             ></v-text-field>
           </v-col>
-          <v-spacer />
           <v-col>
             <v-text-field
               v-model="password2"
@@ -42,8 +41,6 @@
             ></v-text-field>
           </v-col>
         </v-row>
-        <v-btn class="mr-4" type="submit"> Save </v-btn>
-        <v-btn @click="clear"> Clear </v-btn>
       </form>
     </v-card-text>
   </v-card>

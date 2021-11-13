@@ -2,33 +2,28 @@
   <v-card flat>
     <v-form>
       <v-row>
-        <v-col><v-checkbox v-model="enabled" label="Mesh RF Enable"></v-checkbox></v-col>
         <v-col>
-          <v-text-field
-            v-model="ssid"
-            label="SSID Prefix"
-            :counter="20"
-            placeholder="AREDN"
-            filled
-          ></v-text-field>
+          <v-slider label="Channel" thumb-label="always"></v-slider>
+          <!-- <v-select :items="channels" label="Channel" /> -->
         </v-col>
       </v-row>
       <v-row>
         <v-col>
-          <v-text-field
-            v-model="ip"
-            label="IP Address"
-            :counter="15"
-            filled
-          ></v-text-field>
+          <v-radio-group label="Bandwidth" v-model="row" row>
+            <v-radio label="5 Mhz" value="5"></v-radio>
+            <v-radio label="10 Mhz" value="10"></v-radio>
+            <v-radio label="20 Mhz" value="20"></v-radio>
+          </v-radio-group>
+          <!-- <v-select :items="channelbw" label="Channel Width"></v-select -->
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col>
+          <v-slider label="Power" thumb-label="always"></v-slider>
+          <!-- <v-select :items="power" label="TX Power (in dBm)"></v-select> -->
         </v-col>
         <v-col>
-          <v-text-field
-            v-model="netmask"
-            label="Netmask"
-            :counter="15"
-            filled
-          ></v-text-field>
+          <v-slider v-model="distance" label="Distance" thumb-label="always"></v-slider>
         </v-col>
       </v-row>
     </v-form>

@@ -1,7 +1,6 @@
 <template>
   <div>
     <setup-basic-lanbasic />
-    <setup-basic-lanap />
   </div>
 </template>
 

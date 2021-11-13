@@ -1,61 +1,82 @@
 <template>
-  <!-- <v-row>
-    <v-col class="text-center">
-        <h1>Setup</h1>
-    </v-col>
-  </v-row> -->
-  <v-card>
-    <v-tabs v-model="tab" background-color="primary" centered dark icons-and-text>
-      <v-tabs-slider></v-tabs-slider>
-
-      <v-tab href="#tab-setup">
-        Core Setup
-        <v-icon>mdi-cog</v-icon>
-      </v-tab>
-      <v-tab href="#tab-setup-advanced">
-        Advanced Config
-        <v-icon>mdi-application-cog</v-icon>
-      </v-tab>
-    </v-tabs>
-
-    <v-tabs-items v-model="tab">
-      <v-tab-item value="tab-setup">
-        <setup-basic />
-        <v-divider />
-        <setup-basic-meshrf />
-        <v-divider />
-        <setup-basic-lan />
-        <v-divider />
-        <setup-basic-wan />
-      </v-tab-item>
-
-      </v-tab-item>
-      <v-tab-item value="tab-setup-advanced">
-        <setup-advanced />
-      </v-tab-item>
-    </v-tabs-items>
-  </v-card>
+  <div>
+    <v-toolbar flat>
+      <v-toolbar-title>{{ $options.name }}</v-toolbar-title>
+      <v-spacer />
+      <v-btn class="mr-4" light type="submit"> Save </v-btn>
+      <v-btn light @click="clear"> Clear </v-btn>
+    </v-toolbar>
+    <!-- ROW 1 -->
+    <v-row justify="center" align="stretch">
+      <v-col cols="12">
+        <SetupBasic />
+      </v-col>
+    </v-row>
+    <!-- ROW 2 -->
+    <v-row justify="center" align="stretch">
+      <v-col cols="6">
+        <SetupBasicMeshrf />
+      </v-col>
+      <v-col cols="6">
+        <SetupBasicMeshrfSettings />
+      </v-col>
+    </v-row>
+    <!-- ROW 3 -->
+    <v-row justify="center" align="stretch">
+      <v-col cols="6"><SetupBasicLan /></v-col>
+      <v-col cols="6"><SetupBasicLanap /></v-col>
+    </v-row>
+    <!-- ROW 4 -->
+    <v-row justify="center" align="stretch">
+      <v-col cols="4"><SetupBasicWanbasic /></v-col>
+      <v-col cols="4"><SetupBasicWanadvanced /></v-col>
+      <v-col cols="4"><SetupBasicWanwificlient /></v-col>
+    </v-row>
+  </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
 
+const dataService =
+  process.env.apiROOT + "/api?status=ip,meshrf,location,sysinfo,olsr,storage,memory";
+
 export default {
-  name: "Setup",
-  middleware: "authenticated",
+  name: "Basic Setup",
+  components: {},
   head() {
     return {
       title: this.getNodeName() + " [" + this.$options.name + "]",
     };
   },
-  data() {
-    return {
-      tab: null,
-    };
-  },
-  created() {},
   methods: {
     ...mapGetters(["getNodeName"]),
+  },
+  data() {
+    return {
+      info: {},
+      ip: {},
+      meshrf: {},
+      location: {},
+      sysinfo: {},
+      olsr: {},
+      storage: {},
+      memory: {},
+    };
+  },
+  async fetch() {
+    try {
+      this.info = await fetch(dataService).then((res) => res.json());
+      this.ip = this.info.pages.status.ip;
+      this.meshrf = this.info.pages.status.meshrf;
+      this.location = this.info.pages.status.location;
+      this.sysinfo = this.info.pages.status.sysinfo;
+      this.olsr = this.info.pages.status.olsr;
+      this.storage = this.info.pages.status.storage;
+      this.memory = this.info.pages.status.memory;
+    } catch (error) {
+      console.log("`ERROR: ${error}`");
+    }
   },
 };
 </script>
