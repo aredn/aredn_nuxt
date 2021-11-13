@@ -93,7 +93,7 @@
       <v-col cols="1">
         <a href="http://www.arednmesh.org">
           <v-img
-            src="/aredn_logo.png"
+            src="/aredn_logo.svg"
             max-height="40"
             max-width="80"
             alt="AREDNMesh.org"
