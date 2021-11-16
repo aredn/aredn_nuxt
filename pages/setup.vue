@@ -10,34 +10,34 @@
       <!-- ROW 1 -->
       <v-row justify="center" align="stretch">
         <v-col cols="12">
-          <SetupBasic />
+          <SetupBasic :info="info" />
         </v-col>
       </v-row>
       <!-- ROW 2 -->
       <v-row justify="center" align="stretch">
         <v-col cols="12">
-          <SetupBasicMeshrf />
+          <SetupBasicMeshrf :info="info" />
         </v-col>
       </v-row>
       <!-- ROW 3 -->
       <v-row justify="center" align="stretch">
-        <v-col cols="12"><SetupBasicLan /></v-col>
+        <v-col cols="12"><SetupBasicLan :info="info" /></v-col>
       </v-row>
       <!-- ROW 4 -->
       <v-row justify="center" align="stretch">
-        <v-col cols="12"><SetupBasicLanap /></v-col>
+        <v-col cols="12"><SetupBasicLanap :info="info" /></v-col>
       </v-row>
       <!-- ROW 5 -->
       <v-row justify="center" align="stretch">
-        <v-col cols="12"><SetupBasicWanbasic /></v-col>
+        <v-col cols="12"><SetupBasicWanbasic :info="info" /></v-col>
       </v-row>
       <!-- ROW 6 -->
       <v-row justify="center" align="stretch">
-        <v-col cols="12"><SetupBasicWanadvanced /></v-col>
+        <v-col cols="12"><SetupBasicWanadvanced :info="info" /></v-col>
       </v-row>
       <!-- ROW 7 -->
       <v-row justify="center" align="stretch">
-        <v-col cols="12"><SetupBasicWanwificlient /></v-col>
+        <v-col cols="12"><SetupBasicWanwificlient :info="info" /></v-col>
       </v-row>
     </v-form>
   </div>
@@ -46,8 +46,7 @@
 <script>
 import { mapGetters } from "vuex";
 
-const dataService =
-  process.env.apiROOT + "/apiprotected?setup=basic,meshrf,lan,lanap,wan,wanadv,wanclient";
+const dataService = process.env.apiROOT + "/apiprotected?topic=setup_basic";
 
 export default {
   name: "Setup",
@@ -59,29 +58,19 @@ export default {
   },
   methods: {
     ...mapGetters(["getNodeName"]),
+    handleSubmit() {
+      alert("submit!");
+    },
   },
   data() {
     return {
       info: {},
-      basic: {},
-      meshrf: {},
-      lan: {},
-      lanap: {},
-      wan: {},
-      wanadv: {},
-      wanclient: {},
     };
   },
   async fetch() {
     try {
       this.info = await fetch(dataService).then((res) => res.json());
-      this.basic = this.info.pages.setup.basic;
-      this.meshrf = this.info.pages.setup.meshrf;
-      this.lan = this.info.pages.setup.lan;
-      this.lanap = this.info.pages.setup.lanap;
-      this.wan = this.info.pages.setup.wan;
-      this.wanadv = this.info.pages.setup.wanadv;
-      this.wanclient = this.info.pages.setup.wanclient;
+      this.info = this.info.data;
     } catch (error) {
       console.log("`ERROR: ${error}`");
     }

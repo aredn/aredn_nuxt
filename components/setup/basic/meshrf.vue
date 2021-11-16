@@ -4,11 +4,13 @@
     <v-card-subtitle>Define the basic settings for mesh RF</v-card-subtitle>
     <v-card-text>
       <v-row>
-        <v-col><v-checkbox v-model="enabled" label="Mesh RF Enable"></v-checkbox></v-col>
+        <v-col
+          ><v-checkbox v-model="info.meshrf_enabled" label="Mesh RF Enable"></v-checkbox
+        ></v-col>
         <v-col><v-spacer /></v-col>
         <v-col>
           <v-text-field
-            v-model="ssid"
+            v-model="info.ssid_prefix"
             label="SSID Prefix"
             :counter="20"
             placeholder="AREDN"
@@ -22,7 +24,7 @@
       <v-row>
         <v-col>
           <v-text-field
-            v-model="ip"
+            v-model="info.meshrf_ip"
             label="IP Address"
             :counter="15"
             filled
@@ -30,7 +32,7 @@
         </v-col>
         <v-col>
           <v-text-field
-            v-model="netmask"
+            v-model="info.meshrf_netmask"
             label="Netmask"
             :counter="15"
             filled
@@ -39,21 +41,31 @@
       </v-row>
       <v-row>
         <v-col>
-          <v-select :items="channels" label="Channel" />
+          <v-select :items="channels" label="Channel" v-model="info.meshrf_channel" />
         </v-col>
         <v-col>
-          <v-radio-group label="Bandwidth" v-model="bw" row dense>
+          <v-radio-group label="Bandwidth" v-model="info.meshrf_bw" row dense>
             <v-radio label="5" value="5"></v-radio>
             <v-radio label="10" value="10"></v-radio>
             <v-radio label="20" value="20"></v-radio>
           </v-radio-group>
         </v-col>
         <v-col>
-          <v-slider label="Power" thumb-label="always"></v-slider>
+          <v-slider
+            label="Power (dBm)"
+            v-model="info.meshrf_power"
+            thumb-label="always"
+          ></v-slider>
           <!-- <v-select :items="power" label="TX Power (in dBm)"></v-select> -->
         </v-col>
         <v-col>
-          <v-slider v-model="distance" label="Distance" thumb-label="always"></v-slider>
+          <v-slider
+            v-model="info.meshrf_distance"
+            label="Distance (meters)"
+            thumb-label="always"
+            min="0"
+            max="150000"
+          ></v-slider>
         </v-col>
       </v-row>
     </v-card-text>
@@ -66,13 +78,8 @@ export default {
   created() {},
   data() {
     return {
-      enabled: true,
-      ip: "10.10.20.30",
-      netmask: "255.0.0.0",
-      ssid: "AREDN",
-      distance: 0,
-      channel: "",
-      bw: "5",
+      // TODO: get channel list from API
+      // TODO: get power levels from API
       channels: [
         { text: "-2 (2397 Mhz)", value: "-2" },
         { text: "-1 (2402 Mhz)", value: "-1" },
@@ -88,10 +95,12 @@ export default {
       power: [3, 4, 5, 6, 7, 8, 9, 10, 20, 21, 22],
     };
   },
-  props: {},
+  props: {
+    info: {},
+  },
   computed: {
     fullSSID() {
-      return this.ssid + "-" + this.bw + "-v3";
+      return `${this.info.ssid_prefix}-${this.info.meshrf_bw}-v3`;
     },
   },
   methods: {
@@ -99,12 +108,15 @@ export default {
       alert("submit");
     },
     clear() {
-      this.enabled = "";
+      this.enabled = true;
       this.ip = "";
       this.netmask = "";
       this.ssid = "AREDN";
       this.distance = 0;
     },
+  },
+  mounted() {
+    // this.bw = this.info.meshrf_bw;
   },
 };
 </script>

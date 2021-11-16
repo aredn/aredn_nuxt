@@ -6,23 +6,19 @@
       <v-row>
         <v-col>
           <v-text-field
-            v-model="name"
+            v-model="info.nodename"
             :counter="25"
             label="Node Name"
             required
             filled
           ></v-text-field>
-        </v-col>
-        <v-col>
           <v-text-field
-            v-model="description"
+            v-model="info.description"
             label="Node Description"
             :counter="50"
             filled
           ></v-text-field>
         </v-col>
-      </v-row>
-      <v-row>
         <v-col>
           <v-text-field
             v-model="password1"
@@ -31,8 +27,6 @@
             :counter="50"
             filled
           ></v-text-field>
-        </v-col>
-        <v-col>
           <v-text-field
             v-model="password2"
             :type="password"
@@ -52,23 +46,23 @@ export default {
   created() {},
   data() {
     return {
-      name: "",
-      description: "",
-      password1: "",
-      password2: "",
+      // description: "",
+      // password1: "",
+      // password2: "",
     };
   },
-  props: {},
-  computed: {},
+  props: {
+    info: {},
+  },
   methods: {
     handleSubmit(d) {
       alert("submit!");
     },
     clear() {
-      this.name = "";
-      this.description = "";
-      this.password1 = "";
-      this.password2 = "";
+      // this.name = "";
+      // this.description = "";
+      // this.password1 = "";
+      // this.password2 = "";
     },
   },
 };
