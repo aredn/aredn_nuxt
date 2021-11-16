@@ -89,3 +89,6 @@ sw.*
 # Vim swap files
 *.swp
 dist.tar
+dist.tar.gz
+dist.gz
+package-lock.json
