@@ -1,9 +1,19 @@
 <template>
   <v-card flat>
+    <v-card-title>WAN Advanced</v-card-title>
+    <v-card-subtitle>Define advanced WAN settings</v-card-subtitle>
     <v-card-text>
-      <h3>Advanced WAN Access</h3>
-      <p>Allow others to use my WAN</p>
-      <p>Prevent LAN devices from access WAN</p>
+      <v-row>
+        <v-col cols="6">
+          <v-checkbox label="Allow others to use my WAN connection" v-model="meshgw" />
+        </v-col>
+        <v-col>
+          <v-checkbox
+            label="Prevent LAN devices from accessing the WAN"
+            v-model="preventlan2wan"
+          />
+        </v-col>
+      </v-row>
     </v-card-text>
   </v-card>
 </template>

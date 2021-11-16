@@ -1,50 +1,41 @@
 <template>
   <v-card flat>
+    <v-card-title>Basic Info</v-card-title>
+    <v-card-subtitle>Required info to setup this node.</v-card-subtitle>
     <v-card-text>
-      <form @submit.prevent="handleSubmit" method="POST">
-        <v-row>
-          <v-col>
-            <v-text-field
-              v-model="name"
-              :counter="25"
-              label="Node Name"
-              required
-              filled
-            ></v-text-field>
-          </v-col>
-          <v-col>
-            <v-text-field
-              v-model="description"
-              label="Node Description"
-              :counter="50"
-              filled
-            ></v-text-field>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col>
-            <v-text-field
-              v-model="password1"
-              :type="password"
-              label="Password"
-              :counter="50"
-              filled
-            ></v-text-field>
-          </v-col>
-          <v-spacer />
-          <v-col>
-            <v-text-field
-              v-model="password2"
-              :type="password"
-              label="Verify Password"
-              :counter="50"
-              filled
-            ></v-text-field>
-          </v-col>
-        </v-row>
-        <v-btn class="mr-4" type="submit"> Save </v-btn>
-        <v-btn @click="clear"> Clear </v-btn>
-      </form>
+      <v-row>
+        <v-col>
+          <v-text-field
+            v-model="info.nodename"
+            :counter="25"
+            label="Node Name"
+            required
+            filled
+          ></v-text-field>
+          <v-text-field
+            v-model="info.description"
+            label="Node Description"
+            :counter="50"
+            filled
+          ></v-text-field>
+        </v-col>
+        <v-col>
+          <v-text-field
+            v-model="password1"
+            :type="password"
+            label="Password"
+            :counter="50"
+            filled
+          ></v-text-field>
+          <v-text-field
+            v-model="password2"
+            :type="password"
+            label="Verify Password"
+            :counter="50"
+            filled
+          ></v-text-field>
+        </v-col>
+      </v-row>
     </v-card-text>
   </v-card>
 </template>
@@ -55,25 +46,24 @@ export default {
   created() {},
   data() {
     return {
-      name: "",
-      description: "",
-      password1: "",
-      password2: "",
+      // description: "",
+      // password1: "",
+      // password2: "",
     };
   },
-  props: {},
-  computed: {},
+  props: {
+    info: {},
+  },
   methods: {
     handleSubmit(d) {
       alert("submit!");
     },
     clear() {
-      this.name = "";
-      this.description = "";
-      this.password1 = "";
-      this.password2 = "";
+      // this.name = "";
+      // this.description = "";
     },
   },
+  mounted() {},
 };
 </script>
 

@@ -1,61 +1,104 @@
 <template>
-  <!-- <v-row>
-    <v-col class="text-center">
-        <h1>Setup</h1>
-    </v-col>
-  </v-row> -->
-  <v-card>
-    <v-tabs v-model="tab" background-color="primary" centered dark icons-and-text>
-      <v-tabs-slider></v-tabs-slider>
-
-      <v-tab href="#tab-setup">
-        Core Setup
-        <v-icon>mdi-cog</v-icon>
-      </v-tab>
-      <v-tab href="#tab-setup-advanced">
-        Advanced Config
-        <v-icon>mdi-application-cog</v-icon>
-      </v-tab>
-    </v-tabs>
-
-    <v-tabs-items v-model="tab">
-      <v-tab-item value="tab-setup">
-        <setup-basic />
-        <v-divider />
-        <setup-basic-meshrf />
-        <v-divider />
-        <setup-basic-lan />
-        <v-divider />
-        <setup-basic-wan />
-      </v-tab-item>
-
-      </v-tab-item>
-      <v-tab-item value="tab-setup-advanced">
-        <setup-advanced />
-      </v-tab-item>
-    </v-tabs-items>
-  </v-card>
+  <div>
+    <v-form @submit.prevent="handleSubmit" method="POST">
+      <v-toolbar flat>
+        <v-toolbar-title>{{ $options.name }}</v-toolbar-title>
+        <v-spacer />
+        <v-btn class="mr-4" light type="submit"> Save </v-btn>
+        <v-btn light @click="clear"> Clear </v-btn>
+      </v-toolbar>
+      <!-- ROW 1 -->
+      <v-row justify="center" align="stretch">
+        <v-col cols="12">
+          <SetupBasic :info="basic" />
+        </v-col>
+      </v-row>
+      <!-- ROW 2 -->
+      <v-row justify="center" align="stretch">
+        <v-col cols="12">
+          <SetupBasicMeshrf :info="meshrf" />
+        </v-col>
+      </v-row>
+      <!-- ROW 3 -->
+      <v-row justify="center" align="stretch">
+        <v-col cols="12">
+          <SetupBasicLan :info="lan" />
+        </v-col>
+      </v-row>
+      <!-- ROW 4 -->
+      <v-row justify="center" align="stretch">
+        <v-col cols="12">
+          <SetupBasicLanap :info="lanap" />
+        </v-col>
+      </v-row>
+      <!-- ROW 5 -->
+      <v-row justify="center" align="stretch">
+        <v-col cols="12">
+          <SetupBasicWanbasic :info="wan" />
+        </v-col>
+      </v-row>
+      <!-- ROW 6 -->
+      <v-row justify="center" align="stretch">
+        <v-col cols="12">
+          <SetupBasicWanadvanced :info="wanadv" />
+        </v-col>
+      </v-row>
+      <!-- ROW 7 -->
+      <v-row justify="center" align="stretch">
+        <v-col cols="12">
+          <SetupBasicWanwificlient :info="wanclient" />
+        </v-col>
+      </v-row>
+    </v-form>
+  </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
 
+const dataService = process.env.apiROOT + "/apiprotected?topic=setup_basic";
+
 export default {
   name: "Setup",
-  middleware: "authenticated",
+  // middleware: "authenticated",
+  components: {},
   head() {
     return {
       title: this.getNodeName() + " [" + this.$options.name + "]",
     };
   },
-  data() {
-    return {
-      tab: null,
-    };
-  },
-  created() {},
   methods: {
     ...mapGetters(["getNodeName"]),
+    handleSubmit() {
+      alert("submit!");
+    },
+  },
+  data() {
+    return {
+      info: {},
+      basic: {},
+      meshrf: {},
+      lan: {},
+      lanap: {},
+      wan: {},
+      wanadv: {},
+      wanclient: {},
+    };
+  },
+  async fetch() {
+    try {
+      this.info = await fetch(dataService).then((res) => res.json());
+      this.info = this.info.data;
+      this.basic = this.info.basic;
+      this.meshrf = this.info.meshrf;
+      this.lan = this.info.lan;
+      this.lanap = this.info.lanap;
+      this.wan = this.info.wan;
+      this.wanadv = this.info.wanadv;
+      this.wanclient = this.info.wanclient;
+    } catch (error) {
+      console.log("ERROR: " + error);
+    }
   },
 };
 </script>

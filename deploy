@@ -1,0 +1,12 @@
+#!/bin/sh
+yarn build
+cd dist
+tar -czf ../dist.tar.gz *
+cd ..
+echo "Sending to localnode..."
+scp -P2222 dist.tar.gz root@localnode.local.mesh:/tmp
+echo "Extracting..."
+ssh -p2222 root@localnode.local.mesh "sh -c 'tar -xzf /tmp/dist.tar.gz -C /www'" 
+echo "Removing file..."
+ssh -p2222 root@localnode.local.mesh "sh -c 'rm /tmp/dist.tar.gz'" 
+echo "Done."
