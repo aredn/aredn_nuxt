@@ -61,10 +61,9 @@ export default {
     clear() {
       // this.name = "";
       // this.description = "";
-      // this.password1 = "";
-      // this.password2 = "";
     },
   },
+  mounted() {},
 };
 </script>
 

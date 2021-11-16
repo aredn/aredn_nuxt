@@ -5,7 +5,7 @@
     <v-card-text>
       <v-row>
         <v-col
-          ><v-checkbox v-model="info.meshrf_enabled" label="Mesh RF Enable"></v-checkbox
+          ><v-checkbox v-model="info.enabled" label="Mesh RF Enable"></v-checkbox
         ></v-col>
         <v-col><v-spacer /></v-col>
         <v-col>
@@ -24,7 +24,7 @@
       <v-row>
         <v-col>
           <v-text-field
-            v-model="info.meshrf_ip"
+            v-model="info.ip"
             label="IP Address"
             :counter="15"
             filled
@@ -32,7 +32,7 @@
         </v-col>
         <v-col>
           <v-text-field
-            v-model="info.meshrf_netmask"
+            v-model="info.netmask"
             label="Netmask"
             :counter="15"
             filled
@@ -41,10 +41,10 @@
       </v-row>
       <v-row>
         <v-col>
-          <v-select :items="channels" label="Channel" v-model="info.meshrf_channel" />
+          <v-select :items="channels" label="Channel" v-model="info.channel" />
         </v-col>
         <v-col>
-          <v-radio-group label="Bandwidth" v-model="info.meshrf_bw" row dense>
+          <v-radio-group label="Bandwidth" v-model="info.bw" row dense>
             <v-radio label="5" value="5"></v-radio>
             <v-radio label="10" value="10"></v-radio>
             <v-radio label="20" value="20"></v-radio>
@@ -53,14 +53,14 @@
         <v-col>
           <v-slider
             label="Power (dBm)"
-            v-model="info.meshrf_power"
+            v-model="info.power"
             thumb-label="always"
           ></v-slider>
           <!-- <v-select :items="power" label="TX Power (in dBm)"></v-select> -->
         </v-col>
         <v-col>
           <v-slider
-            v-model="info.meshrf_distance"
+            v-model="info.distance"
             label="Distance (meters)"
             thumb-label="always"
             min="0"
@@ -100,7 +100,7 @@ export default {
   },
   computed: {
     fullSSID() {
-      return `${this.info.ssid_prefix}-${this.info.meshrf_bw}-v3`;
+      return `${this.info.ssid_prefix}-${this.info.bw}-v3`;
     },
   },
   methods: {
@@ -115,9 +115,7 @@ export default {
       this.distance = 0;
     },
   },
-  mounted() {
-    // this.bw = this.info.meshrf_bw;
-  },
+  mounted() {},
 };
 </script>
 
