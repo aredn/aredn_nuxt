@@ -10,34 +10,8 @@
       <!-- ROW 1 -->
       <v-row justify="center" align="stretch">
         <v-col cols="12">
-          <SetupBasic />
+          <SetupAdvanced />
         </v-col>
-      </v-row>
-      <!-- ROW 2 -->
-      <v-row justify="center" align="stretch">
-        <v-col cols="12">
-          <SetupBasicMeshrf />
-        </v-col>
-      </v-row>
-      <!-- ROW 3 -->
-      <v-row justify="center" align="stretch">
-        <v-col cols="12"><SetupBasicLan /></v-col>
-      </v-row>
-      <!-- ROW 4 -->
-      <v-row justify="center" align="stretch">
-        <v-col cols="12"><SetupBasicLanap /></v-col>
-      </v-row>
-      <!-- ROW 5 -->
-      <v-row justify="center" align="stretch">
-        <v-col cols="12"><SetupBasicWanbasic /></v-col>
-      </v-row>
-      <!-- ROW 6 -->
-      <v-row justify="center" align="stretch">
-        <v-col cols="12"><SetupBasicWanadvanced /></v-col>
-      </v-row>
-      <!-- ROW 7 -->
-      <v-row justify="center" align="stretch">
-        <v-col cols="12"><SetupBasicWanwificlient /></v-col>
       </v-row>
     </v-form>
   </div>
@@ -46,11 +20,10 @@
 <script>
 import { mapGetters } from "vuex";
 
-const dataService =
-  process.env.apiROOT + "/apiprotected?setup=basic,meshrf,lan,lanap,wan,wanadv,wanclient";
+const dataService = process.env.apiROOT + "/apiprotected?setup=advanced";
 
 export default {
-  name: "Setup",
+  name: "Advanced Setup",
   components: {},
   head() {
     return {

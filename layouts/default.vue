@@ -8,46 +8,101 @@
       app
     >
       <v-list>
-        <v-list-item
-          v-for="(item, i) in items"
-          :key="i"
-          :to="item.to"
-          router
-          exact
-          v-show="!item.auth || (isAuthenticated() && item.auth)"
-        >
+        <v-list-item to="/" router exact>
           <v-list-item-action>
-            <v-icon>{{ item.icon }}</v-icon>
+            <v-icon>mdi-information</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title v-text="item.title" />
+            <v-list-item-title>Status</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
 
-        <v-list-group prepend-icon="mdi-tools" no-action>
+        <v-list-item to="/nodes" router exact>
+          <v-list-item-action>
+            <v-icon>mdi-spider-web</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Mesh Nodes</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+
+        <v-list-item to="/services" router exact>
+          <v-list-item-action>
+            <v-icon>mdi-apps</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Mesh Services</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+
+        <v-list-group
+          prepend-icon="mdi-cloud-outline"
+          no-action
+          v-show="isAuthenticated()"
+        >
           <template v-slot:activator>
             <v-list-item-content>
-              <v-list-item-title>Tools</v-list-item-title>
+              <v-list-item-title>Tunnels</v-list-item-title>
             </v-list-item-content>
           </template>
-
-          <template v-for="(tool, i) in tools">
-            <v-list-item
-              :key="i"
-              :to="tool.to"
-              router
-              exact
-              v-show="!tool.auth || (isAuthenticated() && tool.auth)"
-            >
-              <v-list-item-title>
-                <v-list-item-title>{{ tool.title }}</v-list-item-title>
-              </v-list-item-title>
-              <v-list-item-icon>
-                <v-icon>{{ tool.icon }}</v-icon>
-              </v-list-item-icon>
-            </v-list-item>
-          </template>
+          <v-list-item to="/tunnelsin" router exact>
+            <v-list-item-action>
+              <v-icon>mdi-arrow-down-bold-circle</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>Inbound</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item to="/tunnelsout" router exact>
+            <v-list-item-action>
+              <v-icon>mdi-arrow-up-bold-circle</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>Outbound</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
         </v-list-group>
+
+        <v-list-group prepend-icon="mdi-tools" no-action v-show="isAuthenticated()">
+          <template v-slot:activator>
+            <v-list-item-content>
+              <v-list-item-title>Setup</v-list-item-title>
+            </v-list-item-content>
+          </template>
+          <v-list-item to="/setup" router exact>
+            <v-list-item-action>
+              <v-icon>mdi-star-cog</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>Basic</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item to="/setupopt" router exact>
+            <v-list-item-action>
+              <v-icon>mdi-star-cog-outline</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>Optional</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item to="/setupadv" router exact>
+            <v-list-item-action>
+              <v-icon>mdi-database-cog-outline</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>Advanced</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list-group>
+
+        <v-list-item to="/about" router exact>
+          <v-list-item-action>
+            <v-icon>mdi-account-supervisor</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>About</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
       </v-list>
     </v-navigation-drawer>
 
@@ -134,72 +189,6 @@ export default {
       clipped: true,
       drawer: true,
       fixed: true,
-      items: [
-        {
-          icon: "mdi-information",
-          title: "Status",
-          to: "/",
-          auth: false,
-        },
-        {
-          icon: "mdi-spider-web",
-          title: "Mesh Nodes",
-          to: "/nodes",
-          auth: false,
-        },
-        {
-          icon: "mdi-apps",
-          title: "Mesh Services",
-          to: "/services",
-          auth: false,
-        },
-        {
-          icon: "mdi-arrow-down-bold-circle",
-          title: "Inbound Tunnels",
-          to: "/tunnelsin",
-          auth: true,
-        },
-        {
-          icon: "mdi-arrow-up-bold-circle",
-          title: "Outbound Tunnels",
-          to: "/tunnelsout",
-          auth: true,
-        },
-        {
-          icon: "mdi-cog",
-          title: "Setup",
-          to: "/setup",
-          auth: true,
-        },
-        {
-          icon: "mdi-file-upload",
-          title: "Administration",
-          to: "/admin",
-          auth: true,
-        },
-        {
-          icon: "mdi-account-supervisor",
-          title: "About",
-          to: "/about",
-          auth: false,
-        },
-      ],
-
-      tools: [
-        {
-          icon: "mdi-signal",
-          title: "Signal Chart",
-          to: "/signal",
-          auth: false,
-        },
-        {
-          icon: "mdi-wifi",
-          title: "WiFi Scan",
-          to: "/scan",
-          auth: false,
-        },
-      ],
-
       miniVariant: false,
       right: true,
       rightDrawer: false,
