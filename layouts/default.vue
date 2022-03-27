@@ -111,8 +111,8 @@
       <v-btn icon @click.stop="miniVariant = !miniVariant">
         <v-icon>mdi-{{ `chevron-${miniVariant ? "right" : "left"}` }}</v-icon>
       </v-btn>
-      <v-toolbar-title v-text="nodeName" />&nbsp;
-      <!-- [<v-toolbar-title class="font-weight-thin" v-text="desc" />] -->
+      <v-toolbar-title v-text="nodeName" />
+      <div v-if="tacName">&nbsp;/&nbsp;{{ tacName }}</div>
       <v-spacer />
       <v-col cols="2">
         <BaseAlert
@@ -208,6 +208,7 @@ export default {
     },
     ...mapGetters({
       nodeName: "getNodeName",
+      tacName: "getTacticalName",
       nodeDescription: "getNodeDescription",
       shortNodeDescription: "getShortNodeDescription",
     }),
@@ -228,6 +229,7 @@ export default {
     ...mapMutations({
       toggle: "toggle",
       setNodeName: "setNodeName",
+      setTacticalName: "setTacticalName",
       setNodeDescription: "setNodeDescription",
     }),
   },
@@ -239,6 +241,7 @@ export default {
     this.alert.aredn = this.info.pages.common.alerts.aredn;
     this.alert.local = this.info.pages.common.alerts.local;
     this.setNodeName(this.info.pages.common.sysinfo.node);
+    this.setTacticalName(this.info.pages.common.sysinfo.tactical);
     this.setNodeDescription(this.info.pages.common.sysinfo.description);
   },
 };
