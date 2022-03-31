@@ -8,7 +8,7 @@
       app
     >
       <v-list>
-        <v-list-item to="/" router exact>
+        <v-list-item to="/index2" router exact>
           <v-list-item-action>
             <v-icon>mdi-information</v-icon>
           </v-list-item-action>
@@ -16,7 +16,7 @@
             <v-list-item-title>Status</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-
+        <!-- 
         <v-list-item to="/nodes" router exact>
           <v-list-item-action>
             <v-icon>mdi-spider-web</v-icon>
@@ -94,7 +94,7 @@
             </v-list-item-content>
           </v-list-item>
         </v-list-group>
-
+        -->
         <v-list-item to="/about" router exact>
           <v-list-item-action>
             <v-icon>mdi-account-supervisor</v-icon>
@@ -140,10 +140,12 @@
         <v-switch @click="toggleTheme" v-model="darkmode" label="Dark" />
       </v-col>
       <v-col cols="1">
+        <!-- 
         <v-btn class="mx-2" fab dark small color="primary" @click="toggleAuthenticated()">
           <v-icon v-if="isAuthenticated()" dark> mdi-lock </v-icon>
           <v-icon v-else dark> mdi-lock-open-variant </v-icon>
         </v-btn>
+        -->
       </v-col>
       <v-col cols="1">
         <a href="http://www.arednmesh.org">
