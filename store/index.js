@@ -1,7 +1,9 @@
 export const state = () => ({
   authenticated: false,
   nodeName: null,
-  nodeDescription: null
+  nodeDescription: null,
+  activeNode: "localnode",
+  apiRoot: null
 })
 
 export const mutations = {
@@ -13,7 +15,10 @@ export const mutations = {
   },
   setNodeDescription(state, nodedesc) {
     state.nodeDescripion = nodedesc;
-  }
+  },
+  setActiveNode(state, nodename) {
+    state.activeNode = nodename;
+  },
 }
 
 export const getters = {
@@ -32,4 +37,10 @@ export const getters = {
   isAuthenticated(state) {
     return state.authenticated;
   },
+  getActiveNode(state) {
+    return state.activeNode;
+  },
+  getApiRoot(state) {
+    return "http://" + state.activeNode + ".local.mesh:8080/cgi-bin"
+  }
 }
