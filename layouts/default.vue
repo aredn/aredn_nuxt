@@ -288,11 +288,14 @@ export default {
       res.json()
     )
     try {
+      // API 1.4+
+      this.setNodeName(this.info.pages.common.sysinfo.node)
+      this.setNodeDescription(this.info.pages.common.sysinfo.description)
       this.alert.aredn = this.info.pages.common.alerts.aredn
       this.alert.local = this.info.pages.common.alerts.local
-    } catch (error) {}
-    this.setNodeName(this.info.pages.common.sysinfo.node)
-    this.setNodeDescription(this.info.pages.common.sysinfo.description)
+    } catch (error) {
+      // this.setNodeName('UNAVAILABLE')
+    }
   },
 }
 </script>

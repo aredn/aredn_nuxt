@@ -18,6 +18,7 @@ export const mutations = {
   },
   setActiveNode(state, nodename) {
     state.activeNode = nodename;
+    state.nodeName = nodename;
   },
 }
 
