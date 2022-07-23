@@ -1,7 +1,14 @@
 <template>
   <div>
     <div>LOGIN PAGE</div>
-    <v-btn class="mx-2" fab dark small color="primary" @click="toggleAuthenticated()">
+    <v-btn
+      class="mx-2"
+      fab
+      dark
+      small
+      color="primary"
+      @click="toggleAuthenticated()"
+    >
       <v-icon v-if="isAuthenticated()" dark> mdi-lock-open-variant </v-icon>
       <v-icon v-else dark> mdi-lock </v-icon>
     </v-btn>
@@ -9,36 +16,34 @@
 </template>
 
 <script>
-import { mapMutations, mapGetters } from "vuex";
+import { mapMutations, mapGetters } from 'vuex'
 
 export default {
-  name: "Login",
+  name: 'Login',
   head() {
     return {
-      title: this.$store.state.nodename + " " + this.$options.name,
-    };
+      title: this.$store.state.nodename + ' ' + this.$options.name,
+    }
   },
   created() {},
   data() {
-    return {};
+    return {}
   },
   props: {},
   methods: {
     toggleAuthenticated() {
-      this.toggle();
+      this.toggle()
     },
     ...mapMutations({
-      addHosts: "hosts/add",
-      toggle: "toggle",
+      // addHosts: "hosts/add",
+      toggle: 'toggle',
     }),
-    ...mapGetters({
-      getHosts: "hosts/getHosts",
-      getHost: "hosts/getHost",
-      getHostsFiltered: "hosts/getHostsFiltered",
-      isAuthenticated: "isAuthenticated",
-    }),
+    ...mapGetters(['isAuthenticated']),
   },
-};
+  created() {
+    this.$store.dispatch('loadResources', ['allhosts'])
+  },
+}
 </script>
 
 <style lang="scss" scoped></style>

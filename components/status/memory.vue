@@ -14,10 +14,12 @@
           <p class="label">Buffer RAM:</p>
         </v-col>
         <v-col>
-          <p class="mb-0">{{ info.totalram }} KB</p>
-          <p class="mb-0">{{ info.freeram }} KB <v-progress-linear v-model="freerampctfree" /></p>
-          <p class="mb-0">{{ info.sharedram }} KB</p>
-          <p class="mb-0">{{ info.bufferram }} KB</p>
+          <p class="mb-0">{{ memory.totalram }} KB</p>
+          <p class="mb-0">
+            {{ memory.freeram }} KB <v-progress-linear v-model="freerampctfree" />
+          </p>
+          <p class="mb-0">{{ memory.sharedram }} KB</p>
+          <p class="mb-0">{{ memory.bufferram }} KB</p>
         </v-col>
       </v-row>
     </v-card-text>
@@ -25,26 +27,22 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
-  name: "FilesystemInfo",
-  created() {},
-  data() {
-    return {};
-  },
-  props: {
-    info: {}
-  },
+  name: 'FilesystemInfo',
   computed: {
+    ...mapGetters(['memory']),
     freerampctfree() {
-      return ((this.info.freeram/this.info.totalram) * 100).toFixed(3);
-    }
+      return ((this.memory.freeram / this.memory.totalram) * 100).toFixed(3)
+    },
   },
-  methods: {},
-};
+}
 </script>
 
 <style lang="css" scoped>
 .label {
   margin-bottom: 0;
   font-weight: bold;
-}</style>
+}
+</style>

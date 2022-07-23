@@ -14,10 +14,10 @@
           <p class="label">Freespace in /tmp:</p>
         </v-col>
         <v-col>
-          <p class="mb-0">{{ info.roottotal }} KB</p>
-          <p class="mb-0">{{ info.rootfree }} KB <v-progress-linear v-model="rootpctfree" /></p>
-          <p class="mb-0">{{ info.tmptotal }} KB</p>
-          <p class="mb-0">{{ info.tmpfree }} KB <v-progress-linear v-model="tmppctfree" /></p>
+          <p class="mb-0">{{ storage.roottotal }} KB</p>
+          <p class="mb-0">{{ storage.rootfree }} KB <v-progress-linear v-model="rootpctfree" /></p>
+          <p class="mb-0">{{ storage.tmptotal }} KB</p>
+          <p class="mb-0">{{ storage.tmpfree }} KB <v-progress-linear v-model="tmppctfree" /></p>
         </v-col>
       </v-row>
     </v-card-text>
@@ -25,24 +25,19 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: "FilesystemInfo",
-  created() {},
-  data() {
-    return {};
-  },
-  props: {
-    info: {}
-  },
   computed: {
+    ...mapGetters(['storage']),
     rootpctfree() {
-      return ((this.info.rootfree/this.info.roottotal) * 100).toFixed(3);
+      return ((this.storage.rootfree/this.storage.roottotal) * 100).toFixed(3);
     },
     tmppctfree() {
-      return ((this.info.tmpfree/this.info.tmptotal) * 100).toFixed(3);
+      return ((this.storage.tmpfree/this.storage.tmptotal) * 100).toFixed(3);
     }
   },
-  methods: {},
 };
 </script>
 

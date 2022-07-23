@@ -14,12 +14,15 @@
           <p class="label">Load (15m):</p>
         </v-col>
         <v-col cols="7">
-          <!-- {{ info.loads[0] }} -->
-          <p class="mb-0">{{ info.uptime }}</p>
-          <p v-for="(load, index) in info.loads"
+          <!-- {{ sysinfo.loads[0] }} -->
+          <p class="mb-0">{{ sysinfo.uptime }}</p>
+          <p
+            v-for="(load, index) in sysinfo.loads"
             :key="`load${index}`"
             class="mb-0"
-          >{{ load }}</p>
+          >
+            {{ load }}
+          </p>
         </v-col>
       </v-row>
     </v-card-text>
@@ -27,21 +30,19 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
-  name: "Performance",
-  created() {},
-  data() {
-    return {};
+  name: 'Performance',
+  computed: {
+    ...mapGetters(['sysinfo']),
   },
-  props: {
-    info: {}
-  },
-  methods: {},
-};
+}
 </script>
 
 <style lang="css" scoped>
 .label {
   margin-bottom: 0;
   font-weight: bold;
-}</style>
+}
+</style>

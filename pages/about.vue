@@ -45,11 +45,11 @@ export default {
   components: {},
   head() {
     return {
-      title: this.getNodeName() + " [" + this.$options.name + "]",
+      title: this.nodeName + " [" + this.$options.name + "]",
     };
   },
-  methods: {
-    ...mapGetters(["getNodeName"]),
+  computed: {
+    ...mapGetters(['nodeName']),
   },
 };
 </script>

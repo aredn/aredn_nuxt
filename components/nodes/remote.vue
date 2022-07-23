@@ -8,15 +8,15 @@
         <v-col cols="6">Services</v-col>
       </v-row>
     </v-container>
-    <div v-if="$fetchState.pending">Loading...</div>
+    <div v-if="!isLoaded('remotenodes')">Loading...</div>
     <v-expansion-panels v-else>
-      <v-expansion-panel v-for="(node, key) in remoteNodes" :key="key">
+      <v-expansion-panel v-for="(node, key) in remotenodes" :key="key">
         <v-expansion-panel-header>
           <v-container>
             <v-row align="start">
-              <v-col cols="3"
-                ><a :href="makeLink(node.name)" target="_new">{{ node.name }}</a></v-col
-              >
+              <v-col cols="3">
+                <a :href="makeLink(node.name)" target="_new">{{ node.name }}</a>
+              </v-col>
               <v-col cols="2">{{ node.ip }}</v-col>
               <v-col cols="1">{{ node.etx }}</v-col>
               <v-col cols="6">
@@ -25,8 +25,8 @@
             </v-row>
           </v-container>
         </v-expansion-panel-header>
-        <v-expansion-panel-content
-          ><nodes-traceroute :node="node.name" />
+        <v-expansion-panel-content>
+          <nodes-traceroute :node="node.name" />
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-expansion-panels>
@@ -34,40 +34,20 @@
 </template>
 
 <script>
-import { mapMutations, mapGetters } from "vuex";
-
-const dataService = process.env.apiROOT + "/api?mesh=remotenodes";
+import { mapGetters } from 'vuex'
 
 export default {
   methods: {
-    ...mapMutations({
-      addRemoteNodes: "nodes/addRemoteNodes",
-    }),
-    ...mapGetters({
-      getServicesByHost: "services/getServicesByHost",
-      getFQNodeName: "getFQNodeName",
-      getNodeName: "getNodeName",
-    }),
     makeLink(nodename) {
       if (nodename) {
-        return `http://${nodename}.local.mesh:8080`;
+        return `http://${nodename}.local.mesh:8080`
       } else {
-        return `http://${this.$store.state.nodename}.local.mesh:8080`;
+        return `http://${this.$store.state.nodename}.local.mesh:8080`
       }
     },
   },
   computed: {
-    ...mapGetters({
-      remoteNodes: "nodes/getRemoteNodes",
-    }),
+    ...mapGetters(['isLoaded', 'remotenodes']),
   },
-  async fetch() {
-    try {
-      this.info = await fetch(dataService).then((res) => res.json());
-      this.addRemoteNodes(this.info.pages.mesh.remotenodes);
-    } catch (error) {
-      console.log("ERROR: " + error);
-    }
-  },
-};
+}
 </script>

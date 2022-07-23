@@ -12,7 +12,7 @@
     </v-container>
 
     <v-expansion-panels>
-      <v-expansion-panel v-for="(node, ip) in currentNeighbors" :key="ip">
+      <v-expansion-panel v-for="(node, ip) in currentneighbors" :key="ip">
         <v-expansion-panel-header>
           <v-container>
             <v-row align="start">
@@ -20,8 +20,12 @@
               <v-col cols="2">{{ ip }}</v-col>
               <v-col cols="1">{{ node.linkType }}</v-col>
               <v-col cols="1">{{ (node.linkQuality * 100).toFixed(0) }}%</v-col>
-              <v-col cols="1">{{ (node.neighborLinkQuality * 100).toFixed(0) }}%</v-col>
-              <v-col cols="2">{{ node.linkType === "RF" ? node.expected_throughput : "n/a" }}</v-col>
+              <v-col cols="1">
+                {{ (node.neighborLinkQuality * 100).toFixed(0) }}%
+              </v-col>
+              <v-col cols="2">
+                {{ node.linkType === 'RF' ? node.expected_throughput : 'n/a' }}
+              </v-col>
             </v-row>
           </v-container>
         </v-expansion-panel-header>
@@ -34,38 +38,11 @@
 </template>
 
 <script>
-import { mapMutations, mapGetters } from "vuex";
-
-const dataService = process.env.apiROOT + "/api?mesh=currentneighbors";
+import { mapGetters } from 'vuex'
 
 export default {
-  data() {
-    return {
-      info: {},
-    };
-  },
-  methods: {
-    ...mapMutations({
-      addCurrentNeighbors: "nodes/addCurrentNeighbors",
-    }),
-    ...mapGetters({
-      getServicesByHost: "services/getServicesByHost",
-      getFQNodeName: "getFQNodeName",
-      getNodeName: "getNodeName",
-    }),
-  },
   computed: {
-    ...mapGetters({
-      currentNeighbors: "nodes/getCurrentNeighbors",
-    }),
+    ...mapGetters(['currentneighbors']),
   },
-  async fetch() {
-    try {
-      this.info = await fetch(dataService).then((res) => res.json());
-      this.addCurrentNeighbors(this.info.pages.mesh.currentneighbors);
-    } catch (error) {
-      console.log("ERROR: " + error);
-    }
-  },
-};
+}
 </script>

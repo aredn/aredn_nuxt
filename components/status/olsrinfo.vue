@@ -12,8 +12,8 @@
           <p class="label">OLSR Nodes:</p>
         </v-col>
         <v-col>
-          <p class="mb-0">{{ info.entries }}</p>
-          <p class="mb-0">{{ info.nodes }}</p>
+          <p class="mb-0">{{ olsr.entries }}</p>
+          <p class="mb-0">{{ olsr.nodes }}</p>
         </v-col>
       </v-row>
     </v-card-text>
@@ -21,21 +21,19 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
-  name: "SystemInfo",
-  created() {},
-  data() {
-    return {};
+  name: 'SystemInfo',
+  computed: {
+    ...mapGetters(['olsr']),
   },
-  props: {
-    info: {}
-  },
-  methods: {},
-};
+}
 </script>
 
 <style lang="css" scoped>
 .label {
   margin-bottom: 0;
   font-weight: bold;
-}</style>
+}
+</style>

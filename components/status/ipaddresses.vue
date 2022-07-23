@@ -14,10 +14,10 @@
           <p class="label">Gateway:</p>
         </v-col>
         <v-col>
-          <p class="mb-0">{{ info.wifi === "" ? "Disabled" : info.wifi }}</p>
-          <p class="mb-0">{{ info.lan }}</p>
-          <p class="mb-0">{{ info.wan === "" ? "n/a" : info.wan }}</p>
-          <p class="mb-0">{{ info.gateway }}</p>
+          <p class="mb-0">{{ ip.wifi === '' ? 'Disabled' : ip.wifi }}</p>
+          <p class="mb-0">{{ ip.lan }}</p>
+          <p class="mb-0">{{ ip.wan === '' ? 'n/a' : ip.wan }}</p>
+          <p class="mb-0">{{ ip.gateway }}</p>
         </v-col>
       </v-row>
     </v-card-text>
@@ -25,17 +25,14 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
-  name: "IPAddresses",
-  created() {},
-  data() {
-    return {};
+  name: 'IPAddresses',
+  computed: {
+    ...mapGetters(['ip']),
   },
-  props: {
-    info: {}
-  },
-  methods: {},
-};
+}
 </script>
 
 <style scoped>

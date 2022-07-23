@@ -9,7 +9,7 @@
       </v-row>
     </v-container>
 
-    <v-container v-for="(host, key) in info" :key="key">
+    <v-container v-for="(host, key) in localhosts" :key="key">
       <v-row align="start">
         <v-col cols="3">{{ host.hostname }}</v-col>
         <v-col cols="2">{{ host.ip }}</v-col>
@@ -17,15 +17,15 @@
         <v-col cols="6"><nodes-servicechips :ip="host.ip" /></v-col>
       </v-row>
     </v-container>
-
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
-  props: {
-    info: {},
+  computed: {
+    ...mapGetters(['localhosts']),
   },
-  computed: {},
-};
+}
 </script>

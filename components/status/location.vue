@@ -14,9 +14,11 @@
           <p class="label">&nbsp;</p>
         </v-col>
         <v-col>
-          <p class="mb-0">{{ info.lat  === "" ? "Not set" : info.lat }}</p>
-          <p class="mb-0">{{ info.lon  === "" ? "Not set" : info.lon }}</p>
-          <p class="mb-0">{{ info.gridsquare === "" ? "Not set" : info.gridsquare }}</p>
+          <p class="mb-0">{{ location.lat === '' ? 'Not set' : location.lat }}</p>
+          <p class="mb-0">{{ location.lon === '' ? 'Not set' : location.lon }}</p>
+          <p class="mb-0">
+            {{ location.gridsquare === '' ? 'Not set' : location.gridsquare }}
+          </p>
           <p class="mb-0">&nbsp;</p>
         </v-col>
       </v-row>
@@ -25,21 +27,19 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
-  name: "MeshRF",
-  created() {},
-  data() {
-    return {};
+  name: 'MeshRF',
+  computed: {
+    ...mapGetters(['location']),
   },
-  props: {
-    info: {}
-  },
-  methods: {},
-};
+}
 </script>
 
 <style lang="css" scoped>
 .label {
   margin-bottom: 0;
   font-weight: bold;
-}</style>
+}
+</style>

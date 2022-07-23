@@ -17,24 +17,24 @@
         </v-col>
         <v-col cols="8">
           <p class="mb-0">
-            {{ info.model === undefined ? 'N/A' : info.model }}
+            {{ sysinfo.model === undefined ? 'N/A' : sysinfo.model }}
           </p>
           <p class="mb-0">
-            {{ info.target_type === undefined ? 'N/A' : info.target_type }}
+            {{ sysinfo.target_type === undefined ? 'N/A' : sysinfo.target_type }}
           </p>
           <p class="mb-0">
             {{
-              info.firmware_version === undefined
+              sysinfo.firmware_version === undefined
                 ? 'N/A'
-                : info.firmware_version
+                : sysinfo.firmware_version
             }}
           </p>
           <p class="mb-0">
-            {{ info.api_version === undefined ? 'N/A' : info.api_version }}
+            {{ sysinfo.api_version === undefined ? 'N/A' : sysinfo.api_version }}
           </p>
-          <p class="mb-0">{{ info.date }} {{ info.time }}</p>
+          <p class="mb-0">{{ sysinfo.date }} {{ sysinfo.time }}</p>
           <p class="mb-0">
-            {{ info.description === undefined ? 'N/A' : info.description }}
+            {{ sysinfo.description === undefined ? 'N/A' : sysinfo.description }}
           </p>
         </v-col>
       </v-row>
@@ -43,16 +43,14 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'SystemInfo',
-  created() {},
-  data() {
-    return {}
-  },
-  props: {
-    info: {},
-  },
   methods: {},
+  computed: {
+    ...mapGetters(['sysinfo']),
+  },
 }
 </script>
 

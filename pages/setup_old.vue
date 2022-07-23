@@ -45,7 +45,7 @@ export default {
   middleware: "authenticated",
   head() {
     return {
-      title: this.getNodeName() + " [" + this.$options.name + "]",
+      title: this.nodeName + " [" + this.$options.name + "]",
     };
   },
   data() {
@@ -54,8 +54,8 @@ export default {
     };
   },
   created() {},
-  methods: {
-    ...mapGetters(["getNodeName"]),
+  computed: {
+    ...mapGetters(['nodeName']),
   },
 };
 </script>
