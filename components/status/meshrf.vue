@@ -14,10 +14,18 @@
           <p class="label">Frequency (MHz):</p>
         </v-col>
         <v-col>
-          <p class="mb-0">{{ info.ssid === undefined ? "Disabled" : info.ssid }}</p>
-          <p class="mb-0">{{ info.channel === undefined ? "Disabled" : info.channel }}</p>
-          <p class="mb-0">{{ info.chanbw === undefined ? "Disabled" : info.chanbw }}</p>
-          <p class="mb-0">{{ info.frequency === undefined ? "Disabled" : info.frequency }}</p>
+          <p class="mb-0">
+            {{ meshrf.ssid === undefined ? 'Disabled' : meshrf.ssid }}
+          </p>
+          <p class="mb-0">
+            {{ meshrf.channel === undefined ? 'Disabled' : meshrf.channel }}
+          </p>
+          <p class="mb-0">
+            {{ meshrf.chanbw === undefined ? 'Disabled' : meshrf.chanbw }}
+          </p>
+          <p class="mb-0">
+            {{ meshrf.frequency === undefined ? 'Disabled' : meshrf.frequency }}
+          </p>
         </v-col>
       </v-row>
     </v-card-text>
@@ -25,21 +33,19 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
-  name: "MeshRF",
-  created() {},
-  data() {
-    return {};
+  name: 'MeshRF',
+  computed: {
+    ...mapGetters(['meshrf']),
   },
-  props: {
-    info: {}
-  },
-  methods: {},
-};
+}
 </script>
 
 <style lang="css" scoped>
 .label {
   margin-bottom: 0;
   font-weight: bold;
-}</style>
+}
+</style>

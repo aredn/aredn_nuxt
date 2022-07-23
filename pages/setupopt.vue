@@ -24,14 +24,13 @@ const dataService = process.env.apiROOT + "/apiprotected?setup=optional";
 
 export default {
   name: "Optional Setup",
-  components: {},
   head() {
     return {
-      title: this.getNodeName() + " [" + this.$options.name + "]",
+      title: this.nodeName + " [" + this.$options.name + "]",
     };
   },
-  methods: {
-    ...mapGetters(["getNodeName"]),
+  computed: {
+    ...mapGetters(['nodeName']),
   },
   data() {
     return {

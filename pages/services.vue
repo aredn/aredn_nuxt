@@ -7,18 +7,18 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters } from 'vuex'
 
 export default {
-  name: "Services",
+  name: 'Services',
   components: {},
   head() {
     return {
-      title: this.getNodeName() + " [" + this.$options.name + "]",
-    };
+      title: this.nodeName + ' [' + this.$options.name + ']',
+    }
   },
-  methods: {
-    ...mapGetters(["getNodeName"]),
+  computed: {
+    ...mapGetters(['nodeName']),
   },
-};
+}
 </script>

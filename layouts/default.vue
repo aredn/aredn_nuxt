@@ -16,7 +16,7 @@
             <v-list-item-title>Status</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <!-- 
+
         <v-list-item to="/nodes" router exact>
           <v-list-item-action>
             <v-icon>mdi-spider-web</v-icon>
@@ -63,7 +63,11 @@
           </v-list-item>
         </v-list-group>
 
-        <v-list-group prepend-icon="mdi-tools" no-action v-show="isAuthenticated()">
+        <v-list-group
+          prepend-icon="mdi-tools"
+          no-action
+          v-show="isAuthenticated()"
+        >
           <template v-slot:activator>
             <v-list-item-content>
               <v-list-item-title>Setup</v-list-item-title>
@@ -94,7 +98,7 @@
             </v-list-item-content>
           </v-list-item>
         </v-list-group>
-        -->
+
         <v-list-item to="/about" router exact>
           <v-list-item-action>
             <v-icon>mdi-account-supervisor</v-icon>
@@ -119,9 +123,10 @@
           color="red"
           title="AREDN Alert"
           icon="mdi-alert"
-          v-show="alert.aredn !== ''"
-          >{{ alert.aredn }}</BaseAlert
+          v-show="isLoaded('alerts') && alerts.aredn !== ''"
         >
+          {{ alerts.aredn }}
+        </BaseAlert>
       </v-col>
       <v-col cols="2">
         <BaseAlert
@@ -129,9 +134,10 @@
           title="Local Alert"
           icon="mdi-alert-outline"
           class="darken-2"
-          v-show="alert.local !== ''"
-          >{{ alert.local }}</BaseAlert
+          v-show="isLoaded('alerts') && alerts.local !== ''"
         >
+          {{ alerts.local }}
+        </BaseAlert>
       </v-col>
       <v-col cols="2">
         <v-btn small light :href="legacyUrl">Go to Legacy UI</v-btn>
@@ -144,7 +150,7 @@
           dense
           label="Active Node"
           no-data-text="Click the Refresh icon to load this list"
-          :items="nodelist"
+          :items="remotenodeNames"
           @change="changeActiveNode()"
           v-model="selectedNode"
         ></v-select>
@@ -162,7 +168,7 @@
           dark
           x-small
           color="primary"
-          @click="getListOfRemoteNodes()"
+          @click="reloadRemoteNodes()"
         >
           <v-icon>mdi-refresh</v-icon>
         </v-btn>
@@ -179,11 +185,13 @@
         </a>
       </v-col>
     </v-app-bar>
+
     <v-main>
       <v-container>
         <nuxt />
       </v-container>
     </v-main>
+
     <v-footer :absolute="!fixed" app>
       <span
         >&copy; {{ new Date().getFullYear() }} Amateur Radio Emergency Data
@@ -197,11 +205,8 @@
 import BaseAlert from '~/components/common/BaseAlert'
 import { mapMutations, mapGetters } from 'vuex'
 
-const dataService = process.env.apiROOT + '/api?common=sysinfo,alerts'
-const dataUrl = '/api?common=sysinfo,alerts'
-// const dataService = "http://localnode.local.mesh:8080/cgi-bin/api?common=sysinfo,alerts";
-
 export default {
+  name: 'default',
   components: {
     // AREDNAlert,
     BaseAlert,
@@ -216,29 +221,23 @@ export default {
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      info: {},
-      alert: {
-        aredn: '',
-        local: '',
-      },
       authenticated: false,
       darkmode: true,
       olsrnodes: 0,
-      nodelist: [],
     }
   },
   computed: {
     isMeshConnected() {
       return true
     },
-    legacyUrl() {
-      return this.getApiRoot() + '/status'
-    },
-    ...mapGetters({
-      nodeName: 'getNodeName',
-      nodeDescription: 'getNodeDescription',
-      shortNodeDescription: 'getShortNodeDescription',
-    }),
+    ...mapGetters([
+      'alerts',
+      'isLoaded',
+      'legacyUrl',
+      'nodeName',
+      'remotenodes',
+      'remotenodeNames',
+    ]),
   },
   methods: {
     debug() {
@@ -258,44 +257,16 @@ export default {
       this.$fetch()
       this.$nuxt.refresh()
     },
-    async getListOfRemoteNodes() {
-      var nlist = []
-      var fulllist = await fetch(
-        'http://localnode.local.mesh:8080/cgi-bin/api?mesh=remotenodes'
-      ).then((res) => res.json())
-      this.nodelist = fulllist.pages.mesh.remotenodes
-        .map(function (node) {
-          return node.name
-        })
-        .sort()
-      this.addRemoteNodes(this.nodelist)
+    reloadRemoteNodes() {
+      this.$store.dispatch('expireResource', 'remotenodes')
+      this.$store.dispatch('loadResources', ['remotenodes'])
     },
-    ...mapGetters({
-      getApiRoot: 'getApiRoot',
-      getRemoteNodes: 'nodes/getRemoteNodes',
-    }),
     ...mapMutations({
       toggle: 'toggle',
-      setNodeName: 'setNodeName',
-      setNodeDescription: 'setNodeDescription',
-      setActiveNode: 'setActiveNode',
-      addRemoteNodes: 'nodes/addRemoteNodes',
     }),
   },
-  async fetch() {
-    //   this.info = await fetch(dataService).then((res) => res.json())
-    this.info = await fetch(this.getApiRoot() + dataUrl).then((res) =>
-      res.json()
-    )
-    try {
-      // API 1.4+
-      this.setNodeName(this.info.pages.common.sysinfo.node)
-      this.setNodeDescription(this.info.pages.common.sysinfo.description)
-      this.alert.aredn = this.info.pages.common.alerts.aredn
-      this.alert.local = this.info.pages.common.alerts.local
-    } catch (error) {
-      // this.setNodeName('UNAVAILABLE')
-    }
+  created() {
+    this.$store.dispatch('loadResources', ['alerts', 'sysinfo'])
   },
 }
 </script>

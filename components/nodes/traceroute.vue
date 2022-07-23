@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-chip class="ma-1" small>{{ getNodeName }}</v-chip>
+    <v-chip class="ma-1" small>{{ nodeName }}</v-chip>
     <span v-if="$fetchState.pending" class="text-caption">Measuring...</span>
     <span v-for="(r, idx) in route" :key="idx" class="text-caption">
       {{ r.timedelta }}ms<v-chip
@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters } from 'vuex';
 
 const dataService = process.env.apiROOT + "/api?traceroute=";
 
@@ -30,7 +30,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["getNodeName"]),
+    ...mapGetters(['nodeName']),
   },
   methods: {
     getColor(td) {
