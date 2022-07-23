@@ -8,7 +8,7 @@
       app
     >
       <v-list>
-        <v-list-item to="/index2" router exact>
+        <v-list-item to="/" router exact>
           <v-list-item-action>
             <v-icon>mdi-information</v-icon>
           </v-list-item-action>
