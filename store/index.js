@@ -269,6 +269,14 @@ export const actions = {
   expireResource({ commit }, resource) {
     commit('EXPIRE_NODE_DATA', resource)
   },
+  async traceroute({ commit, getters }, node) {
+    const url = getters.apiUrl('traceroute=' + node)
+    console.log('loading traceroute:' + url)
+
+    const data = (await this.$axios.get(url)).data
+
+    return data.pages.traceroute[node]
+  }
 }
 
 export const mutations = {
