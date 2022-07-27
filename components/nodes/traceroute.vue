@@ -1,6 +1,7 @@
 <template>
   <div>
     <!-- <v-chip class="ma-1" small>{{ nodeName }}</v-chip> -->
+    <span v-if="!route" class="text-caption"> Measuring... </span>
     <span v-for="(r, idx) in route" :key="idx" class="text-caption">
       {{ r.timedelta }}ms
       <v-chip

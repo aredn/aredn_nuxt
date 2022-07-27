@@ -364,7 +364,6 @@ export const actions = {
       commit('SET_LOADING', false)
       commit('SET_ERROR', error)
     })
-
     return result
   }
 }
