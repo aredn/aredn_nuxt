@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   props: {
@@ -33,6 +33,7 @@ export default {
     ...mapGetters(['nodeName']),
   },
   methods: {
+    ...mapActions(['traceroute']),
     getColor(td) {
       console.log(td)
       if (td > 200) {
@@ -52,7 +53,7 @@ export default {
     },
   },
   async created() {
-    const result = await this.$store.dispatch('traceroute', this.node)
+    const result = await this.traceroute(this.node)
     this.route = result
   },
 }

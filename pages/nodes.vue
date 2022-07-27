@@ -23,26 +23,22 @@
     </v-tabs>
     <v-tabs-items v-model="tab">
       <v-tab-item value="tab-localhosts">
-        <div v-if="!isLoaded('localhosts')">Loading...</div>
-        <nodes-local v-else />
-        <!-- <nodes-local /> -->
+        <nodes-local />
       </v-tab-item>
+
       <v-tab-item value="tab-currentneighbors">
-        <div v-if="!isLoaded('currentneighbors')">Loading...</div>
-        <nodes-neighbors v-else />
-        <!-- <nodes-neighbors /> -->
+        <nodes-neighbors />
       </v-tab-item>
+
       <v-tab-item value="tab-remotenodes">
-        <div v-if="!isLoaded('remotenodes')">Loading...</div>
-        <nodes-remote v-else />
-        <!-- <nodes-remote /> -->
+        <nodes-remote />
       </v-tab-item>
     </v-tabs-items>
   </v-card>
 </template>
 
 <script>
-import { mapMutations, mapGetters } from 'vuex'
+import { mapActions, mapMutations, mapGetters } from 'vuex'
 
 const requiredResources = [
   'currentneighbors',
@@ -64,10 +60,16 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['isLoaded', ...requiredResources]),
+    ...mapGetters([...requiredResources]),
+  },
+  methods: {
+    ...mapActions(['loadResources', 'pageResources']),
   },
   created() {
-    this.$store.dispatch('loadResources', requiredResources)
+    this.pageResources(requiredResources)
+  },
+  mounted() {
+    this.loadResources()
   },
 }
 </script>

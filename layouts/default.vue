@@ -140,13 +140,19 @@
         </BaseAlert>
       </v-col>
       <v-col cols="2">
-        <v-btn small light :href="legacyUrl">Go to Legacy UI</v-btn>
+        <v-btn small light :href="legacyUrl(nodeName)">Go to Legacy UI</v-btn>
       </v-col>
       <v-col cols="1">
-        <v-switch @click="toggleTheme" v-model="darkmode" label="Dark" />
+        <v-switch
+          class="mt-6"
+          @click="toggleTheme"
+          v-model="darkmode"
+          label="Dark"
+        />
       </v-col>
       <v-col cols="2">
         <v-select
+          class="mt-4"
           dense
           label="Active Node"
           no-data-text="Click the Refresh icon to load this list"
@@ -198,12 +204,16 @@
         Network, Inc.</span
       >
     </v-footer>
+
+    <common-loader />
+    <common-error />
+    <common-apimismatch />
   </v-app>
 </template>
 
 <script>
 import BaseAlert from '~/components/common/BaseAlert'
-import { mapMutations, mapGetters } from 'vuex'
+import { mapActions, mapMutations, mapGetters } from 'vuex'
 
 export default {
   name: 'default',
@@ -240,6 +250,12 @@ export default {
     ]),
   },
   methods: {
+    ...mapActions([
+      'expireResource',
+      'globalResources',
+      'loadNode',
+      'loadResources',
+    ]),
     debug() {
       return JSON.stringify(process.env.apiROOT)
     },
@@ -252,21 +268,20 @@ export default {
     toggleAuthenticated() {
       this.toggle()
     },
-    changeActiveNode() {
-      this.setActiveNode(this.selectedNode)
-      this.$fetch()
-      this.$nuxt.refresh()
+    async changeActiveNode() {
+      await this.loadNode(this.selectedNode)
+      this.selectedNode = 'localnode'
     },
     reloadRemoteNodes() {
-      this.$store.dispatch('expireResource', 'remotenodes')
-      this.$store.dispatch('loadResources', ['remotenodes'])
+      this.expireResource('remotenodes')
+      this.loadResources(['remotenodes'])
     },
     ...mapMutations({
       toggle: 'toggle',
     }),
   },
   created() {
-    this.$store.dispatch('loadResources', ['alerts', 'sysinfo'])
+    this.globalResources(['alerts', 'sysinfo'])
   },
 }
 </script>

@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'Status',
@@ -46,11 +46,14 @@ export default {
       title: this.nodeName + ' [' + this.$options.name + ']',
     }
   },
+  methods: {
+    ...mapActions(['loadResources', 'pageResources']),
+  },
   computed: {
     ...mapGetters(['nodeName']),
   },
   created() {
-    this.$store.dispatch('loadResources', [
+    this.pageResources([
       'ip',
       'meshrf',
       'location',
@@ -59,6 +62,9 @@ export default {
       'storage',
       'memory',
     ])
+  },
+  mounted() {
+    this.loadResources()
   },
 }
 </script>
