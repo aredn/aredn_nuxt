@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { mapMutations, mapGetters } from 'vuex'
+import { mapActions, mapMutations, mapGetters } from 'vuex'
 
 export default {
   name: 'Login',
@@ -31,6 +31,7 @@ export default {
   },
   props: {},
   methods: {
+    ...mapActions(['loadResources', 'pageResources']),
     toggleAuthenticated() {
       this.toggle()
     },
@@ -41,7 +42,10 @@ export default {
     ...mapGetters(['isAuthenticated']),
   },
   created() {
-    this.$store.dispatch('loadResources', ['allhosts'])
+    this.pageResources(['allhosts'])
+  },
+  mounted() {
+    this.loadResources()
   },
 }
 </script>

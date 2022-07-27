@@ -1,7 +1,6 @@
 <template>
   <div>
     <!-- <v-chip class="ma-1" small>{{ nodeName }}</v-chip> -->
-    <span v-if="!route" class="text-caption"> Measuring... </span>
     <span v-for="(r, idx) in route" :key="idx" class="text-caption">
       {{ r.timedelta }}ms
       <v-chip
@@ -18,7 +17,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   props: {
@@ -33,6 +32,7 @@ export default {
     ...mapGetters(['nodeName']),
   },
   methods: {
+    ...mapActions(['traceroute']),
     getColor(td) {
       console.log(td)
       if (td > 200) {
@@ -52,7 +52,7 @@ export default {
     },
   },
   async created() {
-    const result = await this.$store.dispatch('traceroute', this.node)
+    const result = await this.traceroute(this.node)
     this.route = result
   },
 }

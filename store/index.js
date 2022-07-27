@@ -107,17 +107,36 @@ const initNodeData = () => {
 export const state = () => ({
   authenticated: false,
 
+  loading: false,
+  globalResources: [],
+  pageResources: [],
+  hasError: false,
+  errorString: null,
+  hasApiMismatch: null,
+
   nodeData: initNodeData(),
   nodeList: {},
 })
 
 export const getters = {
+  loading(state) {
+    return state.loading
+  },
   isLoaded: (state) => (name) => {
     if (!state.nodeData.hasOwnProperty(name)) {
       throw 'unknown node data resource: ' + name
     }
 
     return state.nodeData[name].loaded
+  },
+  hasError(state) {
+    return state.hasError
+  },
+  errorString(state) {
+    return state.errorString
+  },
+  hasApiMismatch(state) {
+    return state.hasApiMismatch
   },
 
   nodeName(state) {
@@ -139,11 +158,11 @@ export const getters = {
   activeNode(state) {
     return state.nodeData.sysinfo.loaded ? state.nodeData.sysinfo.value.node : 'localnode'
   },
-  apiUrl: (state, getters) => (qs) => {
-    return scheme + getters.activeNode + nodeDomainName + nodePort + '/cgi-bin/api?' + qs
+  apiUrl: (state) => (node, qs) => {
+    return scheme + node + nodeDomainName + nodePort + '/cgi-bin/api?' + qs
   },
-  legacyUrl(state, getters) {
-    return scheme + getters.activeNode + nodeDomainName + nodePort + '/cgi-bin/status'
+  legacyUrl: () => (node) => {
+    return scheme + node + nodeDomainName + nodePort + '/cgi-bin/status'
   },
 
   alerts(state) {
@@ -234,10 +253,64 @@ export const getters = {
 }
 
 export const actions = {
-  async loadResources({ getters, commit, state }, resources) {
+  setLoading({ commit }, value) {
+    commit('SET_LOADING', value)
+  },
+  globalResources({ commit }, resources) {
+    commit('SET_GLOBAL_RESOURCES', resources)
+  },
+  pageResources({ commit }, resources) {
+    commit('SET_PAGE_RESOURCES', resources)
+  },
+  clearError({ commit }) {
+    commit('CLEAR_ERROR')
+  },
+  clearApiMismatch({ commit }) {
+    commit('SET_API_MISMATCH', null)
+  },
+  loadNode({ getters, commit, state }, node) {
+
+    // Collect all requested resources that are not loaded or not cacheable
+    const resources = [...state.globalResources, ...state.pageResources]
+    const rb = {}
+    resources.forEach(r => {
+      const ep = resourceList[r].endpoint
+      rb[ep] = rb[ep] ? [...rb[ep], r] : [r]
+    })
+
+    const qs = Object.entries(rb).map(([k, v]) => k + '=' + v.join(',')).join('&')
+    const url = getters.apiUrl(node, qs)
+    console.log('loading resources:' + url)
+
+    commit('SET_LOADING', true)
+    this.$axios.get(url).then(({ data }) => {
+      commit('SET_LOADING', false)
+
+      // check api_version
+
+      const apiVersion = data.hasOwnProperty('api_version') ? parseFloat(data.api_version) : 0.0
+      if (apiVersion < 1.4) {
+        commit('SET_API_MISMATCH', node)
+        return
+      }
+
+      commit('INIT_NODE_DATA')
+
+      Object.entries(data.pages).forEach(([k, v]) => {
+        Object.entries(v).forEach(x => commit('SET_NODE_DATA', x))
+      })
+    }).catch(error => {
+      commit('SET_LOADING', false)
+      commit('SET_ERROR', error)
+    })
+  },
+  loadResources({ getters, commit, state }, resources) {
     const nodeData = state.nodeData
 
     // Collect all requested resources that are not loaded or not cacheable
+    if (!resources) {
+      resources = [...state.globalResources, ...state.pageResources]
+    }
     const rb = {}
     resources.forEach(r => {
       if (!nodeData.hasOwnProperty(r)) {
@@ -257,25 +330,42 @@ export const actions = {
     }
 
     const qs = Object.entries(rb).map(([k, v]) => k + '=' + v.join(',')).join('&')
-    const url = getters.apiUrl(qs)
+    const url = getters.apiUrl(getters.activeNode, qs)
     console.log('loading resources:' + url)
 
-    const data = (await this.$axios.get(url)).data
+    commit('SET_LOADING', true)
+    this.$axios.get(url).then(({ data }) => {
+      commit('SET_LOADING', false)
 
-    Object.entries(data.pages).forEach(([k, v]) => {
-      Object.entries(v).forEach(x => commit('SET_NODE_DATA', x))
+      Object.entries(data.pages).forEach(([k, v]) => {
+        Object.entries(v).forEach(x => commit('SET_NODE_DATA', x))
+      })
+    }).catch(error => {
+      commit('SET_LOADING', false)
+      commit('SET_ERROR', error)
     })
   },
   expireResource({ commit }, resource) {
     commit('EXPIRE_NODE_DATA', resource)
   },
   async traceroute({ commit, getters }, node) {
-    const url = getters.apiUrl('traceroute=' + node)
+    const qs = 'traceroute=' + node
+    const url = getters.apiUrl(getters.activeNode, qs)
     console.log('loading traceroute:' + url)
 
-    const data = (await this.$axios.get(url)).data
+    let result;
 
-    return data.pages.traceroute[node]
+    commit('SET_LOADING', true)
+    await this.$axios.get(url).then(({ data }) => {
+      commit('SET_LOADING', false)
+
+      result = data.pages.traceroute[node]
+    }).catch(error => {
+      commit('SET_LOADING', false)
+      commit('SET_ERROR', error)
+    })
+
+    return result
   }
 }
 
@@ -283,9 +373,10 @@ export const mutations = {
   toggle(state) {
     state.authenticated = !state.authenticated
   },
-  setActiveNode(state, nodename) {
-  },
 
+  INIT_NODE_DATA(state) {
+    state.nodeData = initNodeData()
+  },
   EXPIRE_NODE_DATA(state, resource) {
     const nodeData = state.nodeData
 
@@ -296,7 +387,22 @@ export const mutations = {
     nodeData[resource].value = structuredClone(resourceList[resource].init)
     nodeData[resource].loaded = false
   },
-
+  SET_API_MISMATCH(state, hasApiMismatch) {
+    state.hasApiMismatch = hasApiMismatch
+  },
+  SET_ERROR(state, error) {
+    state.hasError = true
+    state.errorString = error.message
+  },
+  CLEAR_ERROR(state) {
+    state.hasError = false
+  },
+  SET_GLOBAL_RESOURCES(state, resources) {
+    state.globalResources = resources
+  },
+  SET_LOADING(state, value) {
+    state.loading = value
+  },
   SET_NODE_DATA(state, [resource, value]) {
     const nodeData = state.nodeData
 
@@ -306,5 +412,8 @@ export const mutations = {
 
     nodeData[resource].value = value
     nodeData[resource].loaded = true
-  }
+  },
+  SET_PAGE_RESOURCES(state, resources) {
+    state.pageResources = resources
+  },
 }

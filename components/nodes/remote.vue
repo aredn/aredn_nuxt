@@ -8,8 +8,7 @@
         <v-col cols="6">Services</v-col>
       </v-row>
     </v-container>
-    <div v-if="!isLoaded('remotenodes')">Loading...</div>
-    <v-expansion-panels v-else>
+    <v-expansion-panels>
       <v-expansion-panel v-for="(node, key) in remotenodes" :key="key">
         <v-expansion-panel-header>
           <v-container>
@@ -47,7 +46,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['isLoaded', 'remotenodes']),
+    ...mapGetters(['remotenodes']),
   },
 }
 </script>
